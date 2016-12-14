@@ -3,8 +3,7 @@
 			"Index_Url":"http://www.damai.cn/ajaxArtist.aspx?type=5&pageIndex=1",
 			"Max_Page":{
 				"soup":"",
-				"re":"^(\d+)?"
-				}
+				"re":"^(\\d+)?"
 			}
 		},
 		{
@@ -19,19 +18,17 @@
 		},
 		{
 			"Target_Detail_Page":{
-				"xpath":"//div[@class=\"art_ticket\"]/ul/li/h3/a/@href"
-			},
-			"Some_Info":{
-				"star_name":"//strong[@class=\"f22\"]/text()"
+				"xpath":"//div[@class=\"art_ticket\"]/ul/li/h3/a/@href",
+				"Some_Info":{
+					"star_name":"//strong[@class=\"f22\"]/text()"
+				}
 			}
 		},
 		{
 			"Final_Xpath":{
 				"concert_name":"//h2[@class=\"tt\"]/span/text()",
-				"concert_place":"//p[@class=\"txt\"]/a/text()",
-				"concert_time":"//div[@class=\"ct\"]/span/text()",
-				"concert_venue":"//p[@class=\"txt\"]/a/text()",
-				"concert_price":""
+				"concert_time":"//div[@class=\"m-sdbox m-showtime\"]/div[@class=\"ct\"]/span/text()",
+				"concert_venue":"//p[@class=\"txt\"]/a/text()"
 			}
 		}]
 
