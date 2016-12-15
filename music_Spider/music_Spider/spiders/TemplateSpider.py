@@ -22,6 +22,7 @@ import os
 from scrapy.exceptions import CloseSpider
 from urllib import quote_plus
 import datetime
+from scrapy.item import Item,Field
 import hashlib
 
 #相对url转绝对url，假定将从网页中提取的不是http开头的，全部替换成从Index_Url中的第一个/前面部分+网页中提取到的部分					
@@ -174,9 +175,9 @@ class MusicSpider(scrapy.Spider):
 				keys = Target_Detail_Page['Some_Info'].keys()
 				for key in keys:
 						try:
-								Target_Detail_Page['Some_Info'][key] = str(response.xpath(Target_Detail_Page['Some_Info'][key]).extract())
+								Target_Detail_Page['Some_Info'][key] = response.xpath(Target_Detail_Page['Some_Info'][key]).extract()[0]
 						except Exception,e:
-								print Exception,":",e
+								print Exception,"____________________:________________________",e
 				Some_Info = Target_Detail_Page['Some_Info']
 		
 		if type(detail_url) is list:
@@ -195,20 +196,17 @@ class MusicSpider(scrapy.Spider):
 		Final_Xpath = response.meta['Final_Xpath']
 		Some_Info = response.meta.get('Some_Info',None)
 		#l = ItemLoader(item=MusicSpiderItem(), response=response)
-		print response.url
 		
 		if 'All_Xpath' not in Final_Xpath.keys():
-				l = ItemLoader(item=MusicSpiderItem(), response=response)
-				"""
+				item = MusicSpiderItem()
+				l = ItemLoader(item=item, response=response)
 				for key in Final_Xpath.keys():
-						#print key,";",Final_Xpath[key]
-						#print response.xpath(Final_Xpath[key]).extract()
-						l.add_value(str(key),str(response.xpath(Final_Xpath[key]).extract()))
+						item.fields[key] = Field()
+						l.add_xpath(key , Final_Xpath[key])
 				if Some_Info:
 						for key in Some_Info.keys():
-								l.add_value(str(key),str(Some_Info[key]))
-				"""
-				l.add_xpath('name','/',MapCompose(unicode.strip))
+								item.fields[key] = Field()
+								l.add_value(key , Some_Info[key])
 				yield l.load_item()
 		else:
 				#l = ItemLoader(item=MusicSpiderItem(), response=response)
@@ -216,17 +214,11 @@ class MusicSpider(scrapy.Spider):
 				for i in response.xpath(Final_Xpath['All_Xpath']):
 						l = ItemLoader(item=MusicSpiderItem(), response=response)
 						for key in Final_Xpath.keys():
+								item.fields[key] = Field()
 								l.add_xpath(key , Final_Xpath[key])
 						if Some_Info:
 								for key in Some_Info.keys():
+									item.fields[key] = Field()
 									l.add_value(key , Some_Info[key])
 						yield l.load_item()
 				
-				
-				
-
-		
-	
-	
-	
-						
