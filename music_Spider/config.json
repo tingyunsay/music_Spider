@@ -27,8 +27,9 @@
 		{
 			"Final_Xpath":{
 				"concert_name":"//h2[@class=\"tt\"]/span/text()",
-				"concert_time":"//div[@class=\"m-sdbox m-showtime\"]/div[@class=\"ct\"]/span/text()",
-				"concert_venue":"//p[@class=\"txt\"]/a/text()"
+				"concert_time":"//div[@class=\"ct\"]/ul[@class=\"lst \"]/li[@class=\"itm itm-sel\"]/a/text()",
+				"concert_venue":"//div[@class=\"ct\"]/p[@class=\"txt\"]/a/text()",
+				"concert_price":"//div[@class=\"ct\"]/ul[@class=\"lst \"]//li/@data-pricename"
 			}
 		}]
 

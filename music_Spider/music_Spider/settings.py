@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.3
+DOWNLOAD_DELAY = 0.5
 LOG_LEVEL = 'DEBUG'
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -56,7 +56,12 @@ LOG_LEVEL = 'DEBUG'
 DOWNLOADER_MIDDLEWARES = {
     #'music_Spider.middlewares.MyCustomDownloaderMiddleware': 543,
      'music_Spider.UserAgent_Middlewares.RandomUserAgent' : 400,
+	 'scrapyjs.SplashMiddleware' : 725,
 }
+
+DUPEFILTER_CLASS = 'scrapyjs.SplashAwareDupeFilter'
+SPLASH_URL = 'http://localhost:8050/'
+
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

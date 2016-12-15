@@ -68,9 +68,9 @@ class MusicSpider(scrapy.Spider):
 		super(MusicSpider,self).__init__(*args,**kwargs)
 		#用一个list来存放所有的json配置中的k,v，变成了一个元祖list，遍历这个list
 		#scrapy.log.start("./log.txt",loglevel=INFO,logstdout=True)
-		self.log = open("./log.txt",'a')
-		print >> self.log,"__________________________分割线___________________________________"
-		print >> self.log,"At Time %s : 爬虫启动............"%time.ctime()
+		#self.log = open("./log.txt",'a')
+		#print >> self.log,"__________________________分割线___________________________________"
+		#print >> self.log,"At Time %s : 爬虫启动............"%time.ctime()
 		self.now = time.time()
 		self.one_month_ago = datetime.datetime(time.localtime(self.now).tm_year,time.localtime(self.now).tm_mon-1,time.localtime(self.now).tm_mday)
 		self.config = []
@@ -106,8 +106,8 @@ class MusicSpider(scrapy.Spider):
 				
 				#这里就完全抛弃了之前的postdata的想法，直接是找必要的元素，（我假定：可能会存在多个需要传递的变化参数，预留一下这种情况的处理方法）
 				urls = get_HeadUrl(self.Index_Url)#其中变化的页面参数用page替换了，下面才会有format
-				#for i in range(1,int(pageNums)):
-				for i in range(1,2):
+				for i in range(1,int(pageNums)+1):
+				#for i in range(1,2):
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_first)
 						request.meta['Index_Url'] = self.Index_Url
@@ -167,27 +167,61 @@ class MusicSpider(scrapy.Spider):
 		Index_Url = response.meta['Index_Url']
 		Target_Detail_Page = response.meta['Target_Detail_Page']
 		Final_Xpath = response.meta['Final_Xpath']
-		Some_Info = ""
+		#之后会在每一层都加上一个Some_Info，只要存在它，就会附加传递信息
+		Some_Info = {}
 		
-		detail_url = Relative_to_Absolute(Index_Url,response.xpath(Target_Detail_Page['xpath']).extract())
 		
 		if Target_Detail_Page['Some_Info']:
 				keys = Target_Detail_Page['Some_Info'].keys()
 				for key in keys:
 						try:
-								Target_Detail_Page['Some_Info'][key] = response.xpath(Target_Detail_Page['Some_Info'][key]).extract()[0]
+								Some_Info[key] = response.xpath(Target_Detail_Page['Some_Info'][key]).extract()[0]
 						except Exception,e:
-								print Exception,"____________________:________________________",e
-				Some_Info = Target_Detail_Page['Some_Info']
+								print Exception,":",e
+
+		detail_url = Relative_to_Absolute(Index_Url,response.xpath(Target_Detail_Page['xpath']).extract())
+		#这里添加splash参数，final页面需要渲染
+		meta = {
+				'splash':{
+						'endpoint':'render.html',
+						'args':{
+								'wait':1,
+								'images':0,
+								'render_all':1
+								}
+						}
+				}
 		
+		print detail_url
+
 		if type(detail_url) is list:
+				#print "这里得到的是批量的，为什么只有一个?"
 				for url in detail_url:
-						request = Request(url,callback = self.parse_final)
-						request.meta['Some_Info'] = Some_Info
-						request.meta['Final_Xpath'] = Final_Xpath
-						yield request
+					#print "now the url is : %s"%url
+					request = scrapy.Request(url,callback = self.parse_final,meta = {
+											'splash':{
+											'endpoint':'render.html',
+											'args':{
+													'wait':0.5,
+													'images':0,
+													'render_all':1
+													}
+											}
+									})
+					request.meta['Some_Info'] = Some_Info
+					request.meta['Final_Xpath'] = Final_Xpath
+					yield request
 		else:
-				request = Request(detail_url,callback = self.parse_final)
+				request = Request(detail_url,callback = self.parse_final,meta = {
+											'splash':{
+											'endpoint':'render.html',
+											'args':{
+													'wait':1,
+													'images':0,
+													'render_all':1
+													}
+												}
+									})
 				request.meta['Some_Info'] = Some_Info
 				request.meta['Final_Xpath'] = Final_Xpath
 				yield request
@@ -197,6 +231,7 @@ class MusicSpider(scrapy.Spider):
 		Some_Info = response.meta.get('Some_Info',None)
 		#l = ItemLoader(item=MusicSpiderItem(), response=response)
 		
+		print "now the url is : %s"%response.url
 		if 'All_Xpath' not in Final_Xpath.keys():
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)
@@ -212,6 +247,7 @@ class MusicSpider(scrapy.Spider):
 				#l = ItemLoader(item=MusicSpiderItem(), response=response)
 				All_Xpath = Final_Xpath['All_Xpath']
 				for i in response.xpath(Final_Xpath['All_Xpath']):
+						item = MusicSpiderItem()
 						l = ItemLoader(item=MusicSpiderItem(), response=response)
 						for key in Final_Xpath.keys():
 								item.fields[key] = Field()
