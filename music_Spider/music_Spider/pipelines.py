@@ -14,6 +14,14 @@ from scrapy.exceptions import CloseSpider
 import re
 import time
 import os
+from twisted.enterprise import adbapi
+import MySQLdb.cursors
+
+#itemloader输出得到的list提取成str
+def list_2_str(temp):
+	return ' '.join(temp)
+
+
 
 
 class MusicSpiderPipeline(object):
@@ -29,7 +37,7 @@ class SQLPipeline(object):
 	def __init__(self):
 		self.dbpool=adbapi.ConnectionPool('MySQLdb',
 				host='127.0.0.1',
-				db='weibo_lost',
+				db='liaohong_test',
 				user='root',
 				passwd='liaohong',
 				cursorclass=MySQLdb.cursors.DictCursor,
@@ -40,20 +48,7 @@ class SQLPipeline(object):
 		query.addErrback(self.handle_error)
 		return item
 	def conditional_insert(self,tx,item):
-		tx.execute(\
-		"insert into lost()\
-		values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-		(item[''],
-		item[''],
-		item[''],
-		item[''],
-		item[''],
-		item[''],
-		item[''],
-		item[''],
-		item['']
-		))
-
+		tx.execute("insert into artist_concert2(performer,concert_place,concert_time,concert_title,concert_price) values(%s,%s,%s,%s,%s)",(item['performer'],item['concert_place'],item['concert_time'],item['concert_title'],list_2_str(item['concert_price'])))
 	def handle_error(self,e):
 		log.err(e)
 	

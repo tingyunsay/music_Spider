@@ -26,21 +26,10 @@
 		},
 		{
 			"Final_Xpath":{
-				"concert_id":"",
-				"site_id":"",
 				"concert_title":"//h2[@class=\"tt\"]/span/text()",
-				"concert_url":"",
-				"concert_img":"",
 				"concert_place":"//div[@class=\"ct\"]/p[@class=\"txt\"]/a/text()",
 				"concert_time":"//div[@class=\"ct\"]/ul[@class=\"lst \"]/li[@class=\"itm itm-sel\"]/a/text()",
-				"ship_city":"",
-				"concert_price":"//div[@class=\"ct\"]/ul[@class=\"lst \"]//li/@data-pricename",
-				"seat_map":"",
-				"description":"",
-				"introduce":"",
-				"fav_acount":"",
-				"ctime":"",
-				"utime":0
+				"concert_price":"//div[@class=\"ct\"]/ul[@class=\"lst \"]//li/@data-pricename"
 			}
 		}]
 

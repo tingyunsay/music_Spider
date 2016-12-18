@@ -55,6 +55,7 @@ def Relative_to_Absolute(index_url,url_tail):
 
 
 
+
 def get_HeadUrl(index_url):
 	return re.sub("(\d+)$","{page}",index_url)
 	
@@ -106,8 +107,8 @@ class MusicSpider(scrapy.Spider):
 				
 				#这里就完全抛弃了之前的postdata的想法，直接是找必要的元素，（我假定：可能会存在多个需要传递的变化参数，预留一下这种情况的处理方法）
 				urls = get_HeadUrl(self.Index_Url)#其中变化的页面参数用page替换了，下面才会有format
-				for i in range(1,int(pageNums)+1):
-				#for i in range(1,2):
+				#for i in range(1,int(pageNums)+1):
+				for i in range(1,2):
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_first)
 						request.meta['Index_Url'] = self.Index_Url
@@ -192,7 +193,6 @@ class MusicSpider(scrapy.Spider):
 						}
 				}
 		
-		print detail_url
 
 		if type(detail_url) is list:
 				#print "这里得到的是批量的，为什么只有一个?"
@@ -231,13 +231,17 @@ class MusicSpider(scrapy.Spider):
 		Some_Info = response.meta.get('Some_Info',None)
 		#l = ItemLoader(item=MusicSpiderItem(), response=response)
 		
-		print "now the url is : %s"%response.url
 		if 'All_Xpath' not in Final_Xpath.keys():
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)
 				for key in Final_Xpath.keys():
 						item.fields[key] = Field()
-						l.add_xpath(key , Final_Xpath[key])
+						if Final_Xpath[key] == "":
+								l.add_value(key , Final_Xpath[key])
+						elif type(Final_Xpath[key]) is int:
+								l.add_value(key , Final_Xpath[key])
+						else:
+								l.add_xpath(key , Final_Xpath[key])
 				if Some_Info:
 						for key in Some_Info.keys():
 								item.fields[key] = Field()
