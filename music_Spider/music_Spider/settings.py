@@ -73,8 +73,8 @@ SPLASH_URL = 'http://localhost:8050/'
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     #'music_Spider.pipelines.SomePipeline': 300,
-    #'music_Spider.pipelines.MusicSpiderPipeline' : 301,
-    'music_Spider.pipelines.SQLPipeline' : 303,
+    'music_Spider.pipelines.MusicSpiderPipeline' : 301,
+    #'music_Spider.pipelines.SQLPipeline' : 303,
 }
 COOKIES_ENABLED=False
 

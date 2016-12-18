@@ -53,8 +53,21 @@ def Relative_to_Absolute(index_url,url_tail):
 		else:
 			return url_tail
 
-
-
+def Get_Valid_Url(urls):
+	if type(urls) is list and len(urls) > 1:
+		res_urls = []
+		if re.search(r'^//',urls[0]):
+			for url in urls:
+				res_urls.append("https://"+re.sub(r'^//',"",url))
+		else:
+			res_urls = urls
+		return res_urls
+	else:
+		if re.search(r'^//',''.join(urls)):
+			return re.sub(r'^//',"",''.join(urls))
+		else:
+			return ''.join(urls)
+			
 
 def get_HeadUrl(index_url):
 	return re.sub("(\d+)$","{page}",index_url)
@@ -62,7 +75,7 @@ def get_HeadUrl(index_url):
 	
 
 class MusicSpider(scrapy.Spider):
-	name ='damaiwang'
+	name ='qq_music'
 	allowed_domain = []
 		
 	def __init__(self,*args,**kwargs):
@@ -87,6 +100,36 @@ class MusicSpider(scrapy.Spider):
 			f.close()
 		
 		for v in self.config:
+			if len(v[1]) == 3:
+				self.Index_Url = v[1][0]['Index_Url']
+				Max_Page = v[1][0]['Max_Page']
+				All_Detail_Page = v[1][1]['All_Detail_Page']
+				Final_Xpath = v[1][2]['Final_Xpath']
+				
+				headers={'User-Agent':"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari    /537.36"}
+				
+				response = requests.get(self.Index_Url,headers = headers).content.decode('utf-8')
+				soup = BeautifulSoup(response,"lxml")
+				result = response
+				if Max_Page['soup']:
+					result = str(soup.select(Max_Page['soup']))
+				pageNums = re.search(Max_Page['re'],result).group()
+				print "最大页数是:%s"%pageNums
+				
+				urls = get_HeadUrl(self.Index_Url)
+				
+				#for i in range(1,int(pageNums)+1):
+				for i in range(1,2):
+						url = urls.format(page=str(i))
+						request = Request(url,callback = self.parse_first)
+						request.meta['Index_Url'] = self.Index_Url
+						request.meta['All_Detail_Page'] = All_Detail_Page
+						request.meta['Final_Xpath'] = Final_Xpath
+						yield request	
+				
+				
+					
+
 			if len(v[1]) == 5:
 				self.Index_Url = v[1][0]['Index_Url']
 				Max_Page = v[1][0]['Max_Page']
@@ -122,25 +165,36 @@ class MusicSpider(scrapy.Spider):
 	def parse_first(self,response):
 		Index_Url = response.meta['Index_Url']
 		All_Detail_Page = response.meta['All_Detail_Page']
-		Signal_Detail_Page = response.meta['Signal_Detail_Page']
-		Target_Detail_Page = response.meta['Target_Detail_Page']
+		Signal_Detail_Page = response.meta.get('Signal_Detail_Page',None)
+		Target_Detail_Page = response.meta.get('Target_Detail_Page',None)
 		Final_Xpath = response.meta['Final_Xpath']
-		detail_url = Relative_to_Absolute(Index_Url,response.xpath(All_Detail_Page['xpath']).extract())
-		if type(detail_url) is list:
-				for url in detail_url:
+		#一个页面可能会需要多个提取的xpath，这里就指定为一个list了
+		detail_url = []
+		for xpath in All_Detail_Page['xpath']:
+				for url in Get_Valid_Url(response.xpath(xpath).extract()):
+						detail_url.append(url)
+		#现在考虑在每一层加一个判断，相当于如果没有（第一个）要传递给下一层的数据，就直接传递给final_parse（注：在传递给final_parse时需要判断是否需要渲染，这里我暂时先默认都渲染，但是之后可以考虑在config.json的Final_Xpath加一个flag，1表示需要渲染，0表示不需要）
+		for url in detail_url:
+				if Signal_Detail_Page is None:
+						request = Request(url,callback = self.parse_final,meta={
+											'splash':{
+											'endpoint':'render.html',
+											'args':{
+													'wait':0.5,
+													'images':0,
+													'render_all':1
+													}
+											}
+									})
+						request.meta['Final_Xpath'] = Final_Xpath
+						yield request
+				else:
 						request = Request(url,callback = self.parse_second)
 						request.meta['Index_Url'] = Index_Url
 						request.meta['Signal_Detail_Page'] = Signal_Detail_Page
 						request.meta['Target_Detail_Page'] = Target_Detail_Page
 						request.meta['Final_Xpath'] = Final_Xpath
 						yield request
-		else:
-				request = Request(detail_url,callback = self.parse_second)
-				request.meta['Index_Url'] = Index_Url
-				request.meta['Signal_Detail_Page'] = Signal_Detail_Page
-				request.meta['Target_Detail_Page'] = Target_Detail_Page
-				request.meta['Final_Xpath'] = Final_Xpath
-				yield request
 	
 	def parse_second(self,response):
 		Index_Url = response.meta['Index_Url']

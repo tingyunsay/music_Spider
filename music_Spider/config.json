@@ -13,15 +13,15 @@
 		},
 		{
 			"Signal_Detail_Page":{
-				"xpath":"//ul[@class=\"art_menu\"]/li[3]/a/@href"
+				"xpath":"//ul[@class=\"art_menu\"]/li[3]/a/@href",
+				"Some_Info":{
+					"performer":"//strong[@class=\"f22\"]/text()"
+				}
 			}
 		},
 		{
 			"Target_Detail_Page":{
-				"xpath":"//div[@class=\"art_ticket\"]/ul/li/h3/a/@href",
-				"Some_Info":{
-					"performer":"//strong[@class=\"f22\"]/text()"
-				}
+				"xpath":"//div[@class=\"art_ticket\"]/ul/li/h3/a/@href"
 			}
 		},
 		{
@@ -31,7 +31,34 @@
 				"concert_time":"//div[@class=\"ct\"]/ul[@class=\"lst \"]/li[@class=\"itm itm-sel\"]/a/text()",
 				"concert_price":"//div[@class=\"ct\"]/ul[@class=\"lst \"]//li/@data-pricename"
 			}
-		}]
+		}],
+	"qq_music":[{
+			"Index_Url":"https://y.qq.com/portal/singerlist.html#t4=1",
+			"Max_Page":{
+				"soup":"",
+				"re":"(?<=total_page : \\')\\d+"
+			}
+		},
+		{
+			"All_Detail_Page":{
+				"xpath":["//ul[@class=\"singer_list__list\"]/li/div/a/@href","//ul[@class=\"singer_list_txt\"]/li/a/@href"]
+			}
+		},
+		{
+			"Final_Xpath":{
+					"music_counts":"//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][1]/a/strong/text()",
+					"album_counts":"//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][2]/a/strong/text()",
+					"mv_counts":"//ul[@class=\"mod_data_statistic\"]/li[3]/a/strong/text()",
+					"concern_counts":"//a[@class=\"mod_btn js_follow\"]/text()"
+			}		
+		}
+
+
+
+					
+			
+	]
+	
 
 
 

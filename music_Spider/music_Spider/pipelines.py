@@ -48,7 +48,7 @@ class SQLPipeline(object):
 		query.addErrback(self.handle_error)
 		return item
 	def conditional_insert(self,tx,item):
-		tx.execute("insert into artist_concert2(performer,concert_place,concert_time,concert_title,concert_price) values(%s,%s,%s,%s,%s)",(item['performer'],item['concert_place'],item['concert_time'],item['concert_title'],list_2_str(item['concert_price'])))
+		tx.execute("insert into artist_concert2(performer,concert_place,concert_time,concert_title,concert_price) values(%s,%s,%s,%s,%s)",(item['performer'],item['concert_place'],list_2_str(item['concert_time']),item['concert_title'],list_2_str(item['concert_price'])))
 	def handle_error(self,e):
 		log.err(e)
 	
