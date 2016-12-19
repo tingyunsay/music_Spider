@@ -51,15 +51,22 @@
 					"mv_counts":"//ul[@class=\"mod_data_statistic\"]/li[3]/a/strong/text()",
 					"concern_counts":"//a[@class=\"mod_btn js_follow\"]/text()"
 			}		
-		}
-
-
-
-					
-			
-	]
-	
-
-
+		}],
+	"qq_music_mv":[{
+			"Index_Url":"https://y.qq.com/portal/mv_lib.html?t5=1",
+			"Max_Page":{
+					"xpath":"//div[@class=\"mod_page_nav js_pager\"]/a[4]/text()"
+			}
+		},
+		{
+			"Final_Xpath":{
+					"All_Xpath":"//div[@class=\"mv_list__item_box\"]",
+					"mv_title":"h3/a/text()",
+					"artist_name":"div[@class=\"mv_list__singer\"]/a/text()",
+					"play_counts":"div[@class=\"mv_list__info\"]/span/text()",
+					"publish_time":"div[@class=\"mv_list__info\"]/text()",
+					"mv_mid":"a/@data-vid"
+			}
+		}]
 
 }
