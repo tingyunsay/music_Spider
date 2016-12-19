@@ -107,8 +107,8 @@ class MusicSpider(scrapy.Spider):
 				
 				#这里就完全抛弃了之前的postdata的想法，直接是找必要的元素，（我假定：可能会存在多个需要传递的变化参数，预留一下这种情况的处理方法）
 				urls = get_HeadUrl(self.Index_Url)#其中变化的页面参数用page替换了，下面才会有format
-				#for i in range(1,int(pageNums)+1):
-				for i in range(1,2):
+				for i in range(1,int(pageNums)+1):
+				#for i in range(1,2):
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_first)
 						request.meta['Index_Url'] = self.Index_Url
@@ -226,11 +226,13 @@ class MusicSpider(scrapy.Spider):
 		Final_Xpath = response.meta['Final_Xpath']
 		Some_Info = response.meta.get('Some_Info',None)
 		#l = ItemLoader(item=MusicSpiderItem(), response=response)
-		
+		mid = ""
 		if 'All_Xpath' not in Final_Xpath.keys():
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)
 				for key in Final_Xpath.keys():
+						if re.findall(r'title',key) or re.findall(r'time',key):
+								mid += ''.join(response.xpath(Final_Xpath[key]).extract())
 						item.fields[key] = Field()
 						if Final_Xpath[key] == "":
 								l.add_value(key , Final_Xpath[key])
@@ -241,6 +243,11 @@ class MusicSpider(scrapy.Spider):
 										l.add_xpath(key , Final_Xpath[key])
 								except Exception,e:
 										print Exception,":",e
+				
+				if mid:
+						item.fields["concert_id"] = Field()
+						l.add_value("concert_id",hashlib.md5(mid).hexdigest()[8:-8])
+
 				if Some_Info:
 						for key in Some_Info.keys():
 								item.fields[key] = Field()
