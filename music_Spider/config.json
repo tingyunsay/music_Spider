@@ -67,6 +67,26 @@
 					"publish_time":"div[@class=\"mv_list__info\"]/text()",
 					"mv_mid":"a/@data-vid"
 			}
+		}],
+	"xiami_music":[{
+			"Index_Url":"http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1",
+			"Max_Page":{
+					"xpath":"//div[@class=\"all_page\"]/span/text()",
+					"re":"\\d\\d\\d"
+				}
+			},
+		{
+			"All_Detail_Page":{
+					"xpath":["//div[@class=\"artist\"]/div/a/@href"]
+			}
+		},
+		{
+			"Final_Xpath":{
+					"artist_name":["//div[@id=\"title\"]/h1/text()","//div[@class=\"clearfix\"]/h1/text()"],
+					"play_counts":["//em[@id=\"play_count_num\"]/text()"],
+					"fans_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[2]/a/text()"],
+					"comment_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[3]/a/text()"]
+			}
 		}]
 
 }
