@@ -5,6 +5,8 @@
 def Total_page_circulate(site_name,max_pages):
 	if site_name == "xiami_music":
 			return (max_pages/24)+1
+	if site_name == "xiami_artist":
+			return (max_pages/24)+1
 	else:
 			return max_pages
 

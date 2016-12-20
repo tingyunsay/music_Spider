@@ -87,6 +87,42 @@
 					"fans_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[2]/a/text()"],
 					"comment_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[3]/a/text()"]
 			}
+		}],
+	"xiami_artist":[{
+			"Index_Url":"http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1",
+			"Max_Page":{
+					"xpath":"//div[@class=\"all_page\"]/span/text()",
+					"re":"\\d\\d\\d"
+				}
+		},
+		{
+			"All_Detail_Page":{
+					"xpath":["//div[@class=\"artist\"]/div/a/@href"]
+			}
+		},
+		{
+			"Signal_Detail_Page":{
+					"xpath":"//div[@id=\"content\"]/div[@id=\"nav\"]/a[3]/@href"
+				}
+		},
+		{
+			"Target_Detail_Page":{
+					"xpath":"//div[@class=\"info\"]/div[@class=\"detail\"]/p[@class=\"name\"]/a/@href",
+					"Some_Info":{
+							"album_counts":"//div[@class=\"cate_viewmode clearfix\"]/p/text()",
+							"artist_name":"//div[@id=\"main\"]/div[@id=\"artist_albums\"]/h3/text()"
+						}
+				}
+		},
+		{
+			"Final_Xpath":{
+					"collect_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[2]/text()"],
+					"share_counts":["//li[@class=\"do_share\"]/a/span/em/text()"],
+					"love_counts":["//div[@id=\"album_info\"]/ul/li[1]/span/text()"],
+					"score_level":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/em/text()"],
+					"score_counts":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/i/text()"]
+				}
 		}]
+	
 
 }

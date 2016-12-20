@@ -60,7 +60,7 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 DUPEFILTER_CLASS = 'scrapyjs.SplashAwareDupeFilter'
-SPLASH_URL = 'http://localhost:8050/'
+SPLASH_URL = 'http://192.168.217.40:8050/'
 
 
 # Enable or disable extensions
