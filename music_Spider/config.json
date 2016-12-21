@@ -122,6 +122,36 @@
 					"score_level":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/em/text()"],
 					"score_counts":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/i/text()"]
 				}
+		}],
+	"xiami_mv":[{
+			"Index_Url":"http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1",
+			"Max_Page":{
+					"xpath":"//div[@class=\"all_page\"]/span/text()",
+					"re":"\\d\\d\\d"
+				}
+		},
+		{
+			"All_Detail_Page":{
+					"xpath":["//div[@class=\"artist\"]/div/a/@href"]
+			}
+		},
+		{
+			"Signal_Detail_Page":{
+					"xpath":"//div[@id=\"content\"]/div[@id=\"nav\"]/a[5]/@href"
+				}
+		},
+		{
+				"Target_Detail_Page":{
+					"xpath":"//div[@class=\"mv_item100_block\"]/p[@class=\"name\"]/a/@href"		
+				}
+		},
+		{
+				"Final_Xpath":{
+					"mv_name":["//div[@class=\"container\"]/div[@id=\"title\"]/h1/text()"],
+					"mv_plays":["//div[@id=\"statistics\"]/ul/li[@class=\"play\"]/text()"],
+					"mv_collects":["//div[@id=\"statistics\"]/ul/li[@class=\"fav\"]/em/text()"],
+					"mv_comments":["//div[@id=\"statistics\"]/ul/li[@class=\"common\"]/em/text()"]
+				}
 		}]
 	
 
