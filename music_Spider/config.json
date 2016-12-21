@@ -152,7 +152,35 @@
 					"mv_collects":["//div[@id=\"statistics\"]/ul/li[@class=\"fav\"]/em/text()"],
 					"mv_comments":["//div[@id=\"statistics\"]/ul/li[@class=\"common\"]/em/text()"]
 				}
-		}]
-	
+		}],
+	"bilibili":[{
+				"Index_Url":"http://www.bilibili.com/video/music-original-1.html#!page=1",
+				"Max_Page":{
+					"xpath":"//a[@class=\"p endPage\"]/text()",
+					"re":".+"
+				}
+			},
+			{
+				"All_Detail_Page":{
+					"xpath":["//ul[@class=\"vd-list l2\"]/li/div/div/a[1]/@href"]
+				}
+			},
+			{
+				"Final_Xpath":{
+					"creater_name":["//a[@class=\"name b-vip-red\"]/text()"],
+					"sub_counts":["//div[@class=\"archiveCount\"]/text()"],
+					"fans_counts":["//div[@class=\"up-video-message\"]/div[2]/text()"],
+					"charge_counts":["//div[@class=\"elecrank-header\"]/div[@class=\"title\"]/sapn/text()"],
+					"creater_id":["//a[@class=\"name b-vip-red\"]/@mid"],
+					"song_classify":["//div[@class=\"s_tag\"]/ul/li/a/text()"],
+					"mv_name":["//div[@class=\"info\"]/div[@class=\"v-title\"]/h1/text()"],
+					"mv_id":["//meta[@itemprop=\"embedURL\"]/@conten"],
+					"play_counts":["//div[@class=\"v-title-line\"]/span[@id=\"dianji\"]/text()"],
+					"barrage_counts":["//span[@id=\"dm_count\"]/text()"],
+					"coin_counts":["//span[@id=\"v_ctimes\"]/text()"],
+					"collect_counts":["//span[@id=\"stow_count\"]/text()"],
+					"publish_time":["//div[@class=\"tminfo\"]/time/i/text()"]
+				}
+			}]
 
 }
