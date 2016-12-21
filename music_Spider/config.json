@@ -211,6 +211,31 @@
 					"charge_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp1\"]/text()"],
 					"fans_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp2\"]/text()"]
 				}
-			}]
+			}],
+		"music_station":[{
+					"Is_Json":0,
+					"Index_Url":"http://mv.yinyuetai.com/all?pageType=page&sort=weekViews&page=1",
+					"Max_Page":{
+							"xpath":"//span[@class=\"separator-total J_pageList\"]/text()",
+							"re":"\\d\\d\\d"
+						}
+				},
+				{
+					"All_Detail_Page":{
+							"xpath":["//li/div[@class=\"thumb thumb_mv J_add_convenient_container\"]/a/@href"]
+						}
+				},
+				{
+					"Final_Xpath":{
+							"mv_name":["//p[@class=\"fl videoName\"]/text()"],
+							"artist_name":["//p[@class=\"fl videoName\"]/a/text()"],
+							"play_counts":["//p[@class=\"fr videoCount\"]/strong/text()"],
+							"collect_counts":["//a[@class=\"keep J_keep statisEle\"]/span/text()"],
+							"fav_counts":["//a[@class=\"like J_recommend statisEle\"]/span/text()"],
+							"publish_time":["//div[@class=\"authorBox\"]/p[@class=\"time\"]/text()"],
+							"comment_counts":["//span[@id=\"total-comment\"]/text()"],
+							"mv_id":["//div[@class=\"video_a video_a_current\"]/@data-video-id"]
+						}
+				}]
 
 }
