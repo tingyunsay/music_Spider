@@ -181,6 +181,36 @@
 					"collect_counts":["//span[@id=\"stow_count\"]/text()"],
 					"publish_time":["//div[@class=\"tminfo\"]/time/i/text()"]
 				}
+			}],
+		"acfun":[{
+				"Is_Json":1,
+				"Index_Url":"http://www.acfun.tv/list/getlist?channelId=136&sort=0&pageSize=20&pageNo=1",
+				"Max_Page":{
+						"index":["data","params","pageCount"]
+					}
+			},
+			{
+				"All_Detail_Page":{
+						"index":["data","data","link"]
+					}
+			},
+			{
+				"Final_Xpath":{
+					"mv_name":["//section[@class=\"clearfix wp area head\"]/div[@class=\"title\"]/text()"],
+					"mv_classfy":["//div[@id=\"bd_tag\"]/span/a/text()"],
+					"mv_id":["//div[@id=\"bd_crumb\"]/span[@data-uname]/@data-oid"],
+					"publish_time":["//div[@id=\"bd_crumb\"]/span[@class=\"time\"]/text()"],
+					"play_counts":["//span[@class=\"view fl\"]/span[@class=\"sp2\"]/text()"],
+					"barrage_counts":["//span[@class=\"danmu fl\"]/span[@class=\"sp2\"]/text()"],
+					"comment_counts":["//span[@id=\"bd_comm\"]/span[@class=\"sp2\"]/text()"],
+					"collect_counts":["//span[@id=\"bd_collection\"]/span[@class=\"sp4\"]/text()"],
+					"banana_counts":["//div[@class=\"fl ico\"]/span[@class=\"sp4\"]/text()"],
+					"introduce_counts":["//div[@class=\"desc\"]/div[@class=\"sp1\"]/text()"],
+					"creater_name":["//div[@class=\"user\"]/a[@class=\"a2\"]/div/text()"],
+					"creater_id":["//div[@class=\"column-right fr\"]/div[@class=\"user\"]/@data-uid"],
+					"charge_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp1\"]/text()"],
+					"fans_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp2\"]/text()"]
+				}
 			}]
 
 }
