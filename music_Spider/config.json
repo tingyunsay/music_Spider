@@ -236,6 +236,36 @@
 							"comment_counts":["//span[@id=\"total-comment\"]/text()"],
 							"mv_id":["//div[@class=\"video_a video_a_current\"]/@data-video-id"]
 						}
+				}],
+		"douban":[{
+					"Is_Json":0,
+					"Index_Url":["https://music.douban.com/artists/genre_page/6/1","https://music.douban.com/artists/genre_page/8/1","https://music.douban.com/artists/genre_page/3/1"],
+					"Max_Page":{
+							"xpath":"//div[@class=\"paginator\"]/span[@class=\"thispage\"]/@data-total-page",
+							"re":".+"
+						}
+				},
+				{
+					"All_Detail_Page":{
+							"xpath":["//div[@class=\"photoin\"]/div[@class=\"ll\"]/a/@href"]
+						}
+				},
+				{	
+					"Final_Xpath":{
+							"style_classfy":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][2]/following-sibling::*[1]/text()"],
+							"artist_name":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][1]/following-sibling::a/text()"],
+							"fav_counts":["//div[@id=\"db-followers\"]/div/h2/span[@class=\"pl\"]/a/text()"],
+							"song_name":["//td[@class=\"title player-playable\"]/@title"],
+							"play_counts":["//td[@class=\"title player-playable\"]/following-sibling::*[1]/text()"],
+							"comment_counts":["//div[@class=\"main\"]/div[@class=\"mod\"]/div[@class=\"hd\"]/h2/span[@class=\"pl\"]/a/text()"]
+						}
 				}]
+
+
+
+
+
+
+
 
 }
