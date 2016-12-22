@@ -252,16 +252,47 @@
 				},
 				{	
 					"Final_Xpath":{
-							"style_classfy":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][2]/following-sibling::*[1]/text()"],
-							"artist_name":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][1]/following-sibling::a/text()"],
+							"style_classfy":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][2]/following-sibling::a/text()"],
+							"artist_name":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][1]/following-sibling::*[1]/text()"],
 							"fav_counts":["//div[@id=\"db-followers\"]/div/h2/span[@class=\"pl\"]/a/text()"],
 							"song_name":["//td[@class=\"title player-playable\"]/@title"],
 							"play_counts":["//td[@class=\"title player-playable\"]/following-sibling::*[1]/text()"],
 							"comment_counts":["//div[@class=\"main\"]/div[@class=\"mod\"]/div[@class=\"hd\"]/h2/span[@class=\"pl\"]/a/text()"]
 						}
+				}],
+		"youku_mv":[{
+					"Is_Json":0,
+					"Index_Url":["http://list.youku.com/category/show/c_95_g_%E6%91%87%E6%BB%9A_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E8%88%9E%E6%9B%B2_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E7%94%B5%E5%AD%90_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_R&B_r_2016_s_1_d_1_p_1.html"],
+					"Max_Page":{
+							"xpath":"//div[@class=\"yk-pager\"]/ul[@class=\"yk-pages\"]/li[last()-1]/a/text()",
+							"re":".+"
+						}
+				},
+				{
+					"All_Detail_Page":{
+							"xpath":["//ul[@class=\"info-list\"]/li[@class=\"title\"]/a/@href"]
+						}	
+				},
+				{
+					"Final_Xpath":{
+							"mv_name":["//span[@id=\"subtitle\"]/text()"],
+							"mv_id":["/"],
+							"play_counts":["//span[@id=\"videoTotalPV\"]/em/text()"],
+							"up_counts":["//span[@id=\"upVideoTimes\"]/text()"],
+							"down_counts":["//span[@id=\"downVideoTimes\"]/text()"],
+							"comment_counts":["//em[@id=\"allCommentNum\"]/text()"],
+							"artist_name":["//div[@id=\"module_basic_info\"]//div[@class=\"wrapper\"]//div[@class=\"row\"]/div[@class=\"right-part \"]/ul[@class=\"info\"]/li[1]/text()"],
+							"artist_id":["//div[@class=\"right-part \"]/ul[@class=\"info\"]/li[3]/span/a/@href"],
+							"publish_time":["//div[@id=\"module_basic_info\"]//div[@class=\"wrapper\"]//div[@class=\"row\"]/div[@class=\"right-part \"]/ul[@class=\"info\"]/li[2]/span/text()"],
+							"lyrics":["//div[@class=\"right-part \"]/ul[@class=\"info\"]/li[4]//a/text()"],
+							"publish_person":["//dl[@id=\"subscription_wrap\"]/dd[not (@*)]/a/text()"],
+							"publish_id":["//dl[@id=\"subscription_wrap\"]/dd[not (@*)]/a/@href"],
+							"fans_counts":["//span[@class=\"sub-num-wrap\"]/span/text()"]
+						}
 				}]
-
-
 
 
 

@@ -9,20 +9,21 @@ def Relative_to_Absolute(index_url,url_tail):
 	head_url = re.search(r'(.+//).+?/',index_url).group()
 	if type(url_tail) is list:
 		res_urls = []
-		try:
-			if (not re.search(r'^http://',url_tail[0])) and (not re.search(r'^https://',url_tail[0])):
-				#print "批量，相对转绝对.........."
-				if re.search(r'^/',url_tail[0]):
-				#带有/开头的url，要去除掉这个/，再拼接
-					for url in url_tail:
-						url = re.sub(r'^/',"",url)
-						res_urls.append(head_url + url)
-				else:
-					for url in url_tail:
-						res_urls.append(head_url + url)
-				return res_urls
-		except Exception,e:
-			print Exception,":",e
+		if re.search(r'^//',url_tail[0]):
+			for url in url_tail:
+				res_urls.append(re.sub(r'^//',"http://",url))
+			return res_urls
+		elif (not re.search(r'^http://',url_tail[0])) and (not re.search(r'^https://',url_tail[0])):
+			#print "批量，相对转绝对.........."
+			if re.search(r'^/',url_tail[0]):
+			#带有/开头的url，要去除掉这个/，再拼接
+				for url in url_tail:
+					url = re.sub(r'^/',"",url)
+					res_urls.append(head_url + url)
+			else:
+				for url in url_tail:
+					res_urls.append(head_url + url)
+			return res_urls
 		else:
 			return url_tail
 	else:
