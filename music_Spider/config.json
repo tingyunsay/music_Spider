@@ -262,10 +262,10 @@
 				}],
 		"youku_mv":[{
 					"Is_Json":0,
-					"Index_Url":["http://list.youku.com/category/show/c_95_g_%E6%91%87%E6%BB%9A_r_2016_s_1_d_1_p_1.html",
-								"http://list.youku.com/category/show/c_95_g_%E8%88%9E%E6%9B%B2_r_2016_s_1_d_1_p_1.html",
-								"http://list.youku.com/category/show/c_95_g_%E7%94%B5%E5%AD%90_r_2016_s_1_d_1_p_1.html",
-								"http://list.youku.com/category/show/c_95_g_R&B_r_2016_s_1_d_1_p_1.html"],
+					"Index_Url":["http://list.youku.com/category/show/c_95_g_%E6%91%87%E6%BB%9A_r_2016_s_1_d_1_p_1",
+								"http://list.youku.com/category/show/c_95_g_%E8%88%9E%E6%9B%B2_r_2016_s_1_d_1_p_1",
+								"http://list.youku.com/category/show/c_95_g_%E7%94%B5%E5%AD%90_r_2016_s_1_d_1_p_1",
+								"http://list.youku.com/category/show/c_95_g_R&B_r_2016_s_1_d_1_p_1"],
 					"Max_Page":{
 							"xpath":"//div[@class=\"yk-pager\"]/ul[@class=\"yk-pages\"]/li[last()-1]/a/text()",
 							"re":".+"
@@ -283,7 +283,7 @@
 							"play_counts":["//span[@id=\"videoTotalPV\"]/em/text()"],
 							"up_counts":["//span[@id=\"upVideoTimes\"]/text()"],
 							"down_counts":["//span[@id=\"downVideoTimes\"]/text()"],
-							"comment_counts":["//em[@id=\"allCommentNum\"]/text()"],
+							"comment_counts":["//div[@class=\"program  current \"]//div[@class=\"status\"]/span[2]/text()"],
 							"artist_name":["//div[@id=\"module_basic_info\"]//div[@class=\"wrapper\"]//div[@class=\"row\"]/div[@class=\"right-part \"]/ul[@class=\"info\"]/li[1]/text()"],
 							"artist_id":["//div[@class=\"right-part \"]/ul[@class=\"info\"]/li[3]/span/a/@href"],
 							"publish_time":["//div[@id=\"module_basic_info\"]//div[@class=\"wrapper\"]//div[@class=\"row\"]/div[@class=\"right-part \"]/ul[@class=\"info\"]/li[2]/span/text()"],
@@ -292,8 +292,38 @@
 							"publish_id":["//dl[@id=\"subscription_wrap\"]/dd[not (@*)]/a/@href"],
 							"fans_counts":["//span[@class=\"sub-num-wrap\"]/span/text()"]
 						}
+				}],
+		"aiqiyi_mv":[{
+					"Is_Json":0,
+					"Index_Url":["http://list.iqiyi.com/www/5/-------------11-30-2-iqiyi--.html"],
+					"Max_Page":{
+							"xpath":"//span[@class=\"curPage\"]/text()",
+							"re":".+"
+						}
+				},
+				{
+					"All_Detail_Page":{
+							"xpath":["//p[@class=\"mod-listTitle_left\"]/a/@href"]
+						}	
+				},
+				{
+					"Final_Xpath":{
+							"mv_name":["//strong[@id=\"widget-videotitle\"]"],
+							"mv_id":["//a[@id=\"widget-vshort-cloud\"]/@href"],
+							"play_counts":["//span[@data-vi-elem=\"playCount\"]/text()"],
+							"fav_counts":["//span[@id=\"widget-voteupcount\"]/text()"],
+							"comment_counts":["//i[@data-elem-num=\"pinglunargs\"]/text()"],
+							"artist_name":["//h2[@class=\"jiemu-tit\"]/a/span/text()"],
+							"artist_id":["/"],
+							"publish_time":["//p[@id=\"widget-vshort-ptime\"]/text()"],
+							"introduction":["//p[@id=\"widget-vshort-lesswrap\"]/text()"],
+							"lyrics":["/"],
+							"publish_person":["//a[@class=\"textOverflow play-album-userName\"]/@title"],
+							"publish_id":["//a[@class=\"textOverflow play-album-userName\"]/@href"],
+							"sub_counts":["//span[@class=\"widget-vshort-totalnum\"]/text()"],
+							"music_classify":["//div[@class=\"mod-crumb_ft\"]//span[@class=\"mod-tags_item vl-block\"]/a/text()"]
+						}
 				}]
-
 
 
 
