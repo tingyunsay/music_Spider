@@ -323,8 +323,37 @@
 							"sub_counts":["//span[@class=\"widget-vshort-totalnum\"]/text()"],
 							"music_classify":["//div[@class=\"mod-crumb_ft\"]//span[@class=\"mod-tags_item vl-block\"]/a/text()"]
 						}
+				}],
+		"letv":[{
+					"Is_Json":1,
+					"Index_Url":["http://list.le.com/apin/stardata.json?d=3&p=1"],
+					"Max_Page":{
+							"index":["data_count"]	
+						}
+				},
+				{
+					"All_Detail_Page":{
+							"index":["data_list","name"]
+						}
+				},
+				{
+					"Fianl_Xpath":{
+							"mv_name":["//h1[@class=\"j-video-name video-name\"]/@title"],
+							"mv_id":["//a[@class=\"a_jujiTemp cur\"]/@data-vid"],
+							"play_counts":["//em[@id=\"video_playcount\"]/@title"],
+							"fav_counts":["/"],
+							"comment_counts":["//em[@id=\"video_commentcount\"]/text()"],
+							"artist_name":["//li[@class=\"li_06\"]/em/a/@title"],
+							"publish_time":["//b[@class=\"b_02\"]/text()"],
+							"introduce":["//p[@class=\"limit_txt\"]/text()"],
+							"lyrics":["/"],
+							"publish_name":["//p[@class=\"p_01\"]/a[1]/@title"],
+							"publish_id":["//p[@class=\"p_01\"]/a[1]/@href"],
+							"sub_counts":["/"],
+							"music_classfy":["//li[@class=\"li_05\"]/em/a/@title","li[@class=\"li_05\"]/em/text()"],
+							"area":["//li[@class=\"li_04\"]/a/@title"]
+						}
 				}]
-
 
 
 
