@@ -149,7 +149,8 @@ class MusicSpider(scrapy.Spider):
 		except Exception,e:
 				print Exception,":",e
 		#这里是替换末尾的\d+，记住，遇上其他情况，就扩展这个get_HeadUrl()
-		urls = get_HeadUrl(Index_Url)
+		urls = get_HeadUrl(Index_Url,self.name)
+		print "now the urls is %s"%urls
 
 		max_pages = Total_page_circulate(self.name,int(max_pages))
 		print "最大页数是:%d"%max_pages
@@ -308,6 +309,7 @@ class MusicSpider(scrapy.Spider):
 		#一个页面可能会需要多个提取的xpath，这里就指定为一个list了
 		detail_url = []
 		for xpath in All_Detail_Page['xpath']:
+				print response.xpath(xpath).extract()
 				for url in Relative_to_Absolute(Index_Url,response.xpath(xpath).extract()):
 						detail_url.append(url)
 		#在考虑在每一层加一个判断，相当于如果没有（第一个）要传递给下一层的数据，就直接传递给final_parse（注：在传递给final_parse时需要判断是否需要渲染，这里我暂时先默认都渲染，但是之后可以考虑在config.json的Final_Xpath加一个flag，1表示需要渲染，0表示不需要）

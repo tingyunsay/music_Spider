@@ -303,7 +303,7 @@
 				},
 				{
 					"All_Detail_Page":{
-							"xpath":["//p[@class=\"mod-listTitle_left\"]/a/@href"]
+							"xpath":["//p[@class=\"site-piclist_info_title\"]/a/@href"]
 						}	
 				},
 				{

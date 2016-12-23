@@ -7,6 +7,7 @@ import re
 def Relative_to_Absolute(index_url,url_tail):
 	#把http://..../匹配出来
 	head_url = re.search(r'(.+//).+?/',index_url).group()
+	print url_tail
 	if type(url_tail) is list:
 		res_urls = []
 		if re.search(r'^//',url_tail[0]):
@@ -51,7 +52,10 @@ def Get_Valid_Url(urls):
 			return ''.join(urls)
 			
 
-def get_HeadUrl(index_url):
-	return re.sub("(\d+)$","{page}",index_url)
+def get_HeadUrl(index_url,spider_name):
+	if spider_name == "aiqiyi_mv":
+			return re.sub(r"30","{page}",index_url)
+	else:
+			return re.sub("(\d+)$","{page}",index_url)
 	
 	
