@@ -58,4 +58,34 @@ def get_HeadUrl(index_url,spider_name):
 	else:
 			return re.sub("(\d+)$","{page}",index_url)
 	
-	
+
+def get_letv_url(sid_list):
+	url = "http://search.lekan.letv.com/lekan/apisearch_json.so?from=pc&ps=14&stype=1&cg=9&leIds={star_id}&pn=1"
+	res_urls = []
+	try:
+			for sid in sid_list:
+					res_urls.append(url.format(star_id=sid))
+	except Exception,e:
+			print Exception,":",e
+	return res_urls
+
+def get_letv_url2(vid_list):
+	url = "http://www.le.com/ptv/vplay/{video_id}.html"
+	res_urls = []
+	try:
+			for sid in vid_list:
+					res_urls.append(url.format(video_id=sid))
+	except Exception,e:
+			print Exception,":",e
+	return res_urls
+
+
+
+
+
+
+
+
+
+
+

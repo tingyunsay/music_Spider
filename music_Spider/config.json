@@ -326,18 +326,28 @@
 				}],
 		"letv":[{
 					"Is_Json":1,
-					"Index_Url":["http://list.le.com/apin/stardata.json?d=3&p=1"],
+					"Index_Url":["http://list.le.com/apin/stardata.json?d=3&w=465004&p=1"],
 					"Max_Page":{
 							"index":["data_count"]	
 						}
 				},
 				{
 					"All_Detail_Page":{
-							"index":["data_list","name"]
+							"index":["data_list","sid"]
 						}
 				},
 				{
-					"Fianl_Xpath":{
+					"Signal_Detail_Page":{
+							"index":["data_count"]
+						}
+				},
+				{
+					"Target_Detail_Page":{
+							"index":["video_list","vid"]	
+						}
+				},
+				{
+					"Final_Xpath":{
 							"mv_name":["//h1[@class=\"j-video-name video-name\"]/@title"],
 							"mv_id":["//a[@class=\"a_jujiTemp cur\"]/@data-vid"],
 							"play_counts":["//em[@id=\"video_playcount\"]/@title"],
