@@ -55,6 +55,9 @@ def Get_Valid_Url(urls):
 def get_HeadUrl(index_url,spider_name):
 	if spider_name == "aiqiyi_mv":
 			return re.sub(r"30","{page}",index_url)
+	if spider_name == "tudou":
+			index_url = "http://www.tudou.com/list/albumData.action?tagType=3&firstTagId=12&sort=1&page=1"
+			return re.sub("(\d+)$","{page}",index_url)
 	else:
 			return re.sub("(\d+)$","{page}",index_url)
 	

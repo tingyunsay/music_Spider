@@ -363,7 +363,41 @@
 							"music_classfy":["//li[@class=\"li_05\"]/em/a/@title","li[@class=\"li_05\"]/em/text()"],
 							"area":["//li[@class=\"li_04\"]/a/@title"]
 						}
+				}],
+		"tudou":[{
+					"Is_Json":"0",
+					"Index_Url":["http://www.tudou.com/list/ach12a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2sort1.html"],
+					"Max_Page":{
+							"xpath":"//div[@class=\"attr\"]/span/text()",
+							"re":".+"
+						}
+				},
+				{
+					"All_Detail_Page":{
+							"is_json":1,
+							"index":["data","itemUrl"]
+						}
+				},
+				{
+					"Final_Xpath":{
+							"mv_name":["//h1[@id=\"videoKw\"]/@title"],
+							"mv_id":["/"],
+							"play_counts":["//div[@class=\"exponent\"]//span[@class=\"num\"]/text()"],
+							"fav_counts":["//div[@class=\"dig_container\"]//span[@class=\"num\"]/text()"],
+							"comment_counts":["//i[@class=\"t_total\"]/text()"],
+							"artist_name":["//div[@class=\"d_pic\"]/a/text()"],
+							"publish_time":["//div[@class=\"inner fix dvd\"]/p[@class=\"d_p\"][last()-1]/span[@class=\"d_wrap\"]/text()"],
+							"lyrics":["//div[@class=\"inner fix dvd\"]/p[@class=\"d_p\"][last()-3]/div[@class=\"v_user\"]/a/text()"],
+							"composer":["//div[@class=\"inner fix dvd\"]/p[@class=\"d_p\"][last()-2]/div[@class=\"v_user\"]/a/text()"],
+							"song_name":["//div[@class=\"inner fix dvd\"]/p[@class=\"d_p\"][1]/span[@class=\"d_wrap\"]/text()"],
+							"publish_person":["//div[@class=\"v_user\"]/a/text()"],
+							"publish_id":["//div[@class=\"v_user\"]/a/@data-spm-anchor-id"],
+							"publish_sub":["/"],
+							"style_classfy":["//div[@class=\"inner fix dvd\"]/p[@class=\"d_p\"][last()]/span[@class=\"d_wrap\"]/text()"]
+						}
 				}]
+
+
 
 
 

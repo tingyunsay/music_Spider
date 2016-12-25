@@ -11,6 +11,8 @@ def Total_page_circulate(site_name,max_pages):
 			return (max_pages/24)+1
 	if site_name == "letv":
 			return (max_pages/30)+1
+	if site_name == "tudou":
+			return (max_pages/40)+1
 	else:
 			return max_pages
 
