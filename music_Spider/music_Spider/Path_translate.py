@@ -6,9 +6,10 @@ import re
 #将穿进来的url统一转换成list返回
 def Relative_to_Absolute(index_url,url_tail):
 	#把http://..../匹配出来
+	#print "the url_tail 2222 is %s \n"%url_tail
+	#print "the index_url is 222222 %s \n"%index_url
 	head_url = re.search(r'(.+//).+?/',index_url).group()
-	print url_tail
-	if type(url_tail) is list:
+	if type(url_tail) is list and len(url_tail) > 0:
 		res_urls = []
 		if re.search(r'^//',url_tail[0]):
 			for url in url_tail:
@@ -28,13 +29,13 @@ def Relative_to_Absolute(index_url,url_tail):
 		else:
 			return url_tail
 	else:
-		if (not re.search(r'^http://',url_tail)) and (not re.search(r'^https://',url_tail)):
-			if re.search(r'^/',url_tail):
-				return [head_url + re.sub(r'^/',"",url_tail)]
+		if (not re.search(r'^http://',''.join(url_tail))) and (not re.search(r'^https://',''.join(url_tail))):
+			if re.search(r'^/',''.join(url_tail)):
+				return [head_url + re.sub(r'^/',"",''.join(url_tail))]
 			else:
-				return [head_url + url_tail]
+				return [head_url + ''.join(url_tail)]
 		else:
-			return [url_tail]
+			return [''.join(url_tail)]
 
 def Get_Valid_Url(urls):
 	if type(urls) is list and len(urls) > 1:

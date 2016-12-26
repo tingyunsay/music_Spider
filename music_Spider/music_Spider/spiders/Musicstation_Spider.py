@@ -109,29 +109,41 @@ class MusicSpider(scrapy.Spider):
 
 			if len(v[1]) == 5:
 				self.Index_Url = v[1][0]['Index_Url']
+				Is_Json = v[1][0]['Is_Json']
 				Max_Page = v[1][0]['Max_Page']
 				All_Detail_Page = v[1][1]['All_Detail_Page']
 				Signal_Detail_Page = v[1][2]['Signal_Detail_Page']
 				Target_Detail_Page = v[1][3]['Target_Detail_Page']
 				Final_Xpath = v[1][4]['Final_Xpath']
-				meta = {
-						'splash':{
-								'endpoint':'render.html',
-								'args':{
-										'wait':0.5,
-										'images':0,
-										'render_all':1
-										}
-								}
-						}
-				request = Request(self.Index_Url,callback = self.parse_splash,meta=meta)
-				request.meta['Index_Url'] = self.Index_Url
-				request.meta['Max_Page'] = Max_Page
-				request.meta['All_Detail_Page'] = All_Detail_Page
-				request.meta['Signal_Detail_Page'] = Signal_Detail_Page
-				request.meta['Target_Detail_Page'] = Target_Detail_Page
-				request.meta['Final_Xpath'] = Final_Xpath
-				yield request
+				if Is_Json == 1:
+						for url in self.Index_Url:
+								request = Request(url,callback = self.parse_json)
+								request.meta['Index_Url'] = url
+								request.meta['Max_Page'] = Max_Page
+								request.meta['All_Detail_Page'] = All_Detail_Page
+								request.meta['Signal_Detail_Page'] = Signal_Detail_Page
+								request.meta['Target_Detail_Page'] = Target_Detail_Page
+								request.meta['Final_Xpath'] = Final_Xpath
+								yield request
+				else:
+						for url in self.Index_Url:
+								request = Request(url,callback = self.parse_splash,meta={
+											'splash':{
+													'endpoint':'render.html',
+													'args':{
+															'wait':0.5,
+															'images':0,
+															'render_all':1
+														}
+													}
+												})
+								request.meta['Index_Url'] = url
+								request.meta['Max_Page'] = Max_Page
+								request.meta['All_Detail_Page'] = All_Detail_Page
+								request.meta['Signal_Detail_Page'] = Signal_Detail_Page
+								request.meta['Target_Detail_Page'] = Target_Detail_Page
+								request.meta['Final_Xpath'] = Final_Xpath
+								yield request
 				
 
 	def parse_splash(self,response):
@@ -208,7 +220,7 @@ class MusicSpider(scrapy.Spider):
 						depth += 1
 		except Exception,e:
 				print Exception,":",e
-		urls = get_HeadUrl(Index_Url)	
+		urls = get_HeadUrl(Index_Url,self.name)	
 		
 		print "now the res_json is %s"%res_json
 		max_pages = Total_page_circulate(self.name,int(res_json))
@@ -306,12 +318,13 @@ class MusicSpider(scrapy.Spider):
 								print Exception,":",e
 		#一个页面可能会需要多个提取的xpath，这里就指定为一个list了
 		detail_url = []
+		
 		for xpath in All_Detail_Page['xpath']:
 				for url in Relative_to_Absolute(Index_Url,response.xpath(xpath).extract()):
 						detail_url.append(url)
 		#在考虑在每一层加一个判断，相当于如果没有（第一个）要传递给下一层的数据，就直接传递给final_parse（注：在传递给final_parse时需要判断是否需要渲染，这里我暂时先默认都渲染，但是之后可以考虑在config.json的Final_Xpath加一个flag，1表示需要渲染，0表示不需要）
-		for url in detail_url:
-				if Signal_Detail_Page is None:
+		if Signal_Detail_Page is None:
+				for url in detail_url:
 						request = Request(url,callback = self.parse_final,meta={
 											'splash':{
 											'endpoint':'render.html',
@@ -326,10 +339,10 @@ class MusicSpider(scrapy.Spider):
 						request.meta['Final_Xpath'] = Final_Xpath
 						#time.sleep(4)
 						yield request
-				else:
+		else:
+				for url in detail_url:
 						request = Request(url,callback = self.parse_second)
 						request.meta['Index_Url'] = Index_Url
-						request.meta['Some_Info'] = Some_Info
 						request.meta['Signal_Detail_Page'] = Signal_Detail_Page
 						request.meta['Target_Detail_Page'] = Target_Detail_Page
 						request.meta['Final_Xpath'] = Final_Xpath
@@ -340,7 +353,7 @@ class MusicSpider(scrapy.Spider):
 		Signal_Detail_Page = response.meta.get('Signal_Detail_Page',None)
 		Target_Detail_Page = response.meta.get('Target_Detail_Page',None)
 		Final_Xpath = response.meta.get('Final_Xpath',None)
-		Some_Info = response.meta.get('Some_Info',None)
+		Some_Info = {}
 		if 'Some_Info' in Signal_Detail_Page.keys():
 				keys = Signal_Detail_Page['Some_Info'].keys()
 				for key in keys:
@@ -348,7 +361,6 @@ class MusicSpider(scrapy.Spider):
 								Some_Info[key] = response.xpath(Signal_Detail_Page['Some_Info'][key]).extract()[0]
 						except Exception,e:
 								print Exception,":",e
-		
 		detail_url = Relative_to_Absolute(Index_Url,response.xpath(Signal_Detail_Page['xpath']).extract())
 		if Signal_Detail_Page is None:
 				for url in detail_url:
@@ -367,24 +379,21 @@ class MusicSpider(scrapy.Spider):
 						#time.sleep(4)
 						yield request
 		else:
-				try:
-					for url in detail_url:
+				for url in detail_url:
 						#print "now the url is %s"%url
 						request = Request(url,callback = self.parse_third)
 						request.meta['Index_Url'] = Index_Url
 						request.meta['Target_Detail_Page'] = Target_Detail_Page
 						request.meta['Final_Xpath'] = Final_Xpath
-						request.meta['Some_Info'] = Some_Info
 						yield request
-				except Exception,e:
-					print Exception,":",e
 		
 
 	def parse_third(self,response):
 		Index_Url = response.meta['Index_Url']
 		Target_Detail_Page = response.meta.get('Target_Detail_Page',None)
 		Final_Xpath = response.meta.get('Final_Xpath',None)
-		Some_Info = response.meta.get('Some_Info',None)
+		detail_url = Relative_to_Absolute(Index_Url,response.xpath(Target_Detail_Page['xpath']).extract())	
+		Some_Info = {}
 		if 'Some_Info' in Target_Detail_Page.keys():
 				keys = Target_Detail_Page['Some_Info'].keys()
 				for key in keys:
@@ -392,8 +401,6 @@ class MusicSpider(scrapy.Spider):
 								Some_Info[key] = response.xpath(Target_Detail_Page['Some_Info'][key]).extract()[0]
 						except Exception,e:
 								print Exception,":",e
-		#print "now the url is %s, and the Some_Info is %s"%(response.url,Some_Info["artist_name"])
-		detail_url = Relative_to_Absolute(Index_Url,response.xpath(Target_Detail_Page['xpath']).extract())	
 		for url in detail_url:
 				request = scrapy.Request(url,callback = self.parse_final,meta = {
 										'splash':{
@@ -415,8 +422,6 @@ class MusicSpider(scrapy.Spider):
 		Final_Xpath = response.meta.get('Final_Xpath',None)
 		Some_Info = response.meta.get('Some_Info',None)
 
-		#print "我就想看看得到的Some_Info是%s"%(Some_Info['artist_name'])
-		#l = ItemLoader(item=MusicSpiderItem(), response=response)
 		if 'All_Xpath' not in Final_Xpath.keys():
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)

@@ -89,7 +89,8 @@
 			}
 		}],
 	"xiami_artist":[{
-			"Index_Url":"http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1",
+			"Is_Json":0,
+			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
 					"xpath":"//div[@class=\"all_page\"]/span/text()",
 					"re":"\\d\\d\\d"
