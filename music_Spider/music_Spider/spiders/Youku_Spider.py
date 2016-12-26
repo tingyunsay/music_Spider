@@ -208,7 +208,7 @@ class MusicSpider(scrapy.Spider):
 						depth += 1
 		except Exception,e:
 				print Exception,":",e
-		urls = get_HeadUrl(Index_Url)	
+		urls = get_HeadUrl(Index_Url,self.name)	
 		
 		print "now the res_json is %s"%res_json
 		max_pages = Total_page_circulate(self.name,int(res_json))

@@ -154,7 +154,8 @@
 				}
 		}],
 	"bilibili":[{
-				"Index_Url":"http://www.bilibili.com/video/music-original-1.html#!page=1",
+				"Is_Json":0,
+				"Index_Url":["http://www.bilibili.com/video/music-original-1.html#!page=1"],
 				"Max_Page":{
 					"xpath":"//a[@class=\"p endPage\"]/text()",
 					"re":".+"
@@ -167,14 +168,14 @@
 			},
 			{
 				"Final_Xpath":{
-					"creater_name":["//a[@class=\"name b-vip-red\"]/text()"],
+					"creater_name":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/text()"],
 					"sub_counts":["//div[@class=\"archiveCount\"]/text()"],
 					"fans_counts":["//div[@class=\"up-video-message\"]/div[2]/text()"],
-					"charge_counts":["//div[@class=\"elecrank-header\"]/div[@class=\"title\"]/sapn/text()"],
-					"creater_id":["//a[@class=\"name b-vip-red\"]/@mid"],
+					"charge_counts":["//span[@class=\"total-num\"]/text()","//sapn/text()"],
+					"creater_id":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/@mid"],
 					"song_classify":["//div[@class=\"s_tag\"]/ul/li/a/text()"],
 					"mv_name":["//div[@class=\"info\"]/div[@class=\"v-title\"]/h1/text()"],
-					"mv_id":["//meta[@itemprop=\"embedURL\"]/@conten"],
+					"mv_id":["//meta[@itemprop=\"embedURL\"]/@content"],
 					"play_counts":["//div[@class=\"v-title-line\"]/span[@id=\"dianji\"]/text()"],
 					"barrage_counts":["//span[@id=\"dm_count\"]/text()"],
 					"coin_counts":["//span[@id=\"v_ctimes\"]/text()"],
@@ -184,7 +185,7 @@
 			}],
 		"acfun":[{
 				"Is_Json":1,
-				"Index_Url":"http://www.acfun.tv/list/getlist?channelId=136&sort=0&pageSize=20&pageNo=1",
+				"Index_Url":["http://www.acfun.tv/list/getlist?channelId=136&sort=0&pageSize=20&pageNo=1"],
 				"Max_Page":{
 						"index":["data","params","pageCount"]
 					}
@@ -214,7 +215,7 @@
 			}],
 		"music_station":[{
 					"Is_Json":0,
-					"Index_Url":"http://mv.yinyuetai.com/all?pageType=page&sort=weekViews&page=1",
+					"Index_Url":["http://mv.yinyuetai.com/all?pageType=page&sort=weekViews&page=1"],
 					"Max_Page":{
 							"xpath":"//span[@class=\"separator-total J_pageList\"]/text()",
 							"re":"\\d\\d\\d"
@@ -227,7 +228,7 @@
 				},
 				{
 					"Final_Xpath":{
-							"mv_name":["//p[@class=\"fl videoName\"]/text()"],
+							"mv_name":["//div[@class=\"video_a video_a_current\"]/a/p[@class=\"title statisEle\"]/text()"],
 							"artist_name":["//p[@class=\"fl videoName\"]/a/text()"],
 							"play_counts":["//p[@class=\"fr videoCount\"]/strong/text()"],
 							"collect_counts":["//a[@class=\"keep J_keep statisEle\"]/span/text()"],

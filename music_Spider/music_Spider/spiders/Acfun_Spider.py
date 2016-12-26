@@ -78,32 +78,33 @@ class MusicSpider(scrapy.Spider):
 				Max_Page = v[1][0]['Max_Page']
 				All_Detail_Page = v[1][1]['All_Detail_Page']
 				Final_Xpath = v[1][2]['Final_Xpath']
-				meta = {
-						'splash':{
-								'endpoint':'render.html',
-								'args':{
-										'wait':0.5,
-										'images':0,
-										'render_all':1
-										}
-								}
-						}
 				if Is_Json == 1:
-						request = Request(self.Index_Url,self.parse_json)
-						request.meta['Index_Url'] = self.Index_Url
-						request.meta['Is_Json'] = Is_Json
-						request.meta['Max_Page'] = Max_Page
-						request.meta['All_Detail_Page'] = All_Detail_Page
-						request.meta['Final_Xpath'] = Final_Xpath
-						yield request	
+						for url in self.Index_Url:
+								request = Request(url,self.parse_json)
+								request.meta['Index_Url'] = url
+								request.meta['Is_Json'] = Is_Json
+								request.meta['Max_Page'] = Max_Page
+								request.meta['All_Detail_Page'] = All_Detail_Page
+								request.meta['Final_Xpath'] = Final_Xpath
+								yield request
 				else:
-						request = Request(self.Index_Url,self.parse_splash,meta=meta)
-						request.meta['Index_Url'] = self.Index_Url
-						request.meta['Is_Json'] = Is_Json
-						request.meta['Max_Page'] = Max_Page
-						request.meta['All_Detail_Page'] = All_Detail_Page
-						request.meta['Final_Xpath'] = Final_Xpath
-						yield request	
+						for url in  self.Index_Url:
+								request = Request(url,self.parse_splash,meta={
+										'splash':{
+										'endpoint':'render.html',
+										'args':{
+												'wait':0.5,
+												'images':0,
+												'render_all':1
+												}
+										}
+								})				
+								request.meta['Index_Url'] = url
+								request.meta['Is_Json'] = Is_Json
+								request.meta['Max_Page'] = Max_Page
+								request.meta['All_Detail_Page'] = All_Detail_Page
+								request.meta['Final_Xpath'] = Final_Xpath
+								yield request	
 				
 
 			if len(v[1]) == 5:
@@ -147,7 +148,7 @@ class MusicSpider(scrapy.Spider):
 		except Exception,e:
 				print Exception,":",e
 		#这里是替换末尾的\d+，记住，遇上其他情况，就扩展这个get_HeadUrl()
-		urls = get_HeadUrl(Index_Url)
+		urls = get_HeadUrl(Index_Url,self.name)
 
 		max_pages = Total_page_circulate(self.name,int(max_pages))
 		print "最大页数是:%d"%max_pages
@@ -207,7 +208,7 @@ class MusicSpider(scrapy.Spider):
 						depth += 1
 		except Exception,e:
 				print Exception,":",e
-		urls = get_HeadUrl(Index_Url)	
+		urls = get_HeadUrl(Index_Url,self.name)	
 		
 		print "now the res_json is %s"%res_json
 		max_pages = Total_page_circulate(self.name,int(res_json))
@@ -422,7 +423,11 @@ class MusicSpider(scrapy.Spider):
 				for key in Final_Xpath.keys():
 						item.fields[key] = Field()
 						try:
-								map(lambda x:l.add_xpath(key , x),Final_Xpath[key])
+								#itemloader在add_xxx方法找不到值的时候，会自动忽略这个字段，可是我不想忽略它，这时候需要将其置为空("")
+								if "".join(map(lambda x:response.xpath(x).extract(),Final_Xpath[key])[0]) == '':			
+										map(lambda x:l.add_value(key , ""),Final_Xpath[key])
+								else:
+										map(lambda x:l.add_xpath(key , x),Final_Xpath[key])
 						except Exception,e:
 								print Exception,":",e
 				if Some_Info:
@@ -440,7 +445,11 @@ class MusicSpider(scrapy.Spider):
 						for key in Final_Xpath.keys():
 								item.fields[key] = Field()
 								try:
-										map(lambda x:l.add_value(key , ''.join(i.xpath(x).extract())),Final_Xpath[key])
+										#itemloader在add_xxx方法找不到值的时候，会自动忽略这个字段，可是我不想忽略它，这时候需要将其置为空("")
+										if "".join(map(lambda x:response.xpath(x).extract(),Final_Xpath[key])[0]) == '':
+												map(lambda x:l.add_value(key , ""),Final_Xpath[key])
+										else:
+												map(lambda x:l.add_xpath(key , x),Final_Xpath[key])
 								except Exception,e:
 										print Exception,",",e
 						if Some_Info:
