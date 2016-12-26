@@ -284,7 +284,7 @@
 							"up_counts":["//span[@id=\"upVideoTimes\"]/text()"],
 							"down_counts":["//span[@id=\"downVideoTimes\"]/text()"],
 							"comment_counts":["//div[@class=\"program  current \"]//div[@class=\"status\"]/span[2]/text()"],
-							"artist_name":["//div[@id=\"module_basic_info\"]//div[@class=\"wrapper\"]//div[@class=\"row\"]/div[@class=\"right-part \"]/ul[@class=\"info\"]/li[1]/text()"],
+							"artist_name":["//div[@id=\"module_basic_info\"]//div[@class=\"wrapper\"]//div[@class=\"row\"]/div[@class=\"right-part \"]/ul[@class=\"info\"]/li[@class=\"subtitle\"][2]/span/a/text()"],
 							"artist_id":["//div[@class=\"right-part \"]/ul[@class=\"info\"]/li[3]/span/a/@href"],
 							"publish_time":["//div[@id=\"module_basic_info\"]//div[@class=\"wrapper\"]//div[@class=\"row\"]/div[@class=\"right-part \"]/ul[@class=\"info\"]/li[2]/span/text()"],
 							"lyrics":["//div[@class=\"right-part \"]/ul[@class=\"info\"]/li[4]//a/text()"],

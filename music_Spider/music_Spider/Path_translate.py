@@ -62,6 +62,7 @@ def get_HeadUrl(index_url,spider_name):
 			return re.sub("(\d+)$","{page}",index_url)
 	
 
+#这两者是letv特有的，它们页面间的信息只支持json传输，而传输的json信息中却没有直接的link，而是到了页面通过一个js函数，用传递的参数去构造一个个url（我只能找到js函数的操作，然后自己去构造这些url）
 def get_letv_url(sid_list):
 	url = "http://search.lekan.letv.com/lekan/apisearch_json.so?from=pc&ps=14&stype=1&cg=9&leIds={star_id}&pn=1"
 	res_urls = []
