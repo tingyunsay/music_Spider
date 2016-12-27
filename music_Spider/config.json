@@ -33,10 +33,11 @@
 			}
 		}],
 	"qq_music":[{
-			"Index_Url":"https://y.qq.com/portal/singerlist.html#t4=1",
+			"Is_Json":0,
+			"Index_Url":["https://y.qq.com/portal/singerlist.html#t4=1"],
 			"Max_Page":{
-				"soup":"",
-				"re":"(?<=total_page : \\')\\d+"
+				"xpath":"//div[@class=\"mod_page_nav js_pager\"]/a[last()-1]/text()",
+				"re":".+"
 			}
 		},
 		{
@@ -46,30 +47,33 @@
 		},
 		{
 			"Final_Xpath":{
-					"music_counts":"//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][1]/a/strong/text()",
-					"album_counts":"//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][2]/a/strong/text()",
-					"mv_counts":"//ul[@class=\"mod_data_statistic\"]/li[3]/a/strong/text()",
-					"concern_counts":"//a[@class=\"mod_btn js_follow\"]/text()"
+					"artist_name":["//h1[@class=\"data__name_txt js_index\"]/@title"],
+					"music_counts":["//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][1]/a/strong/text()"],
+					"album_counts":["//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][2]/a/strong/text()"],
+					"mv_counts":["//ul[@class=\"mod_data_statistic\"]/li[3]/a/strong/text()"],
+					"concern_counts":["//a[@class=\"mod_btn js_follow\"]/text()"]
 			}		
 		}],
-	"qq_music_mv":[{
-			"Index_Url":"https://y.qq.com/portal/mv_lib.html?t5=1",
+	"qq_mv":[{
+			"Is_Json":0,
+			"Index_Url":["https://y.qq.com/portal/mv_lib.html?t5=1"],
 			"Max_Page":{
 					"xpath":"//div[@class=\"mod_page_nav js_pager\"]/a[4]/text()"
 			}
 		},
 		{
 			"Final_Xpath":{
-					"All_Xpath":"//div[@class=\"mv_list__item_box\"]",
-					"mv_title":"h3/a/text()",
-					"artist_name":"div[@class=\"mv_list__singer\"]/a/text()",
-					"play_counts":"div[@class=\"mv_list__info\"]/span/text()",
-					"publish_time":"div[@class=\"mv_list__info\"]/text()",
-					"mv_mid":"a/@data-vid"
+					"All_Xpath":["//div[@class=\"mv_list__item_box\"]"],
+					"mv_title":["h3/a/text()"],
+					"artist_name":["div[@class=\"mv_list__singer\"]/a/text()"],
+					"play_counts":["div[@class=\"mv_list__info\"]/span/text()"],
+					"publish_time":["div[@class=\"mv_list__info\"]/text()"],
+					"mv_mid":["a/@data-vid"]
 			}
 		}],
-	"xiami_music":[{
-			"Index_Url":"http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1",
+	"2xiami_music":[{
+			"Is_Json":0,
+			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
 					"xpath":"//div[@class=\"all_page\"]/span/text()",
 					"re":"\\d\\d\\d"
@@ -82,13 +86,20 @@
 		},
 		{
 			"Final_Xpath":{
+					"site_name":["xiami_music"],
 					"artist_name":["//div[@id=\"title\"]/h1/text()","//div[@class=\"clearfix\"]/h1/text()"],
-					"play_counts":["//em[@id=\"play_count_num\"]/text()"],
+					"update_time":["/"],
 					"fans_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[2]/a/text()"],
-					"comment_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[3]/a/text()"]
+					"album_counts":["/"],
+					"song_counts":["/"],
+					"mv_counts":["/"],
+					"dynamic":["/"],
+					"comment_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[3]/a/text()"],
+					"play_counts":["//em[@id=\"play_count_num\"]/text()"],
+					"style_classify":["//div[@id=\"artist_tags_block\"]/div[@class=\"content clearfix\"]/a/text()"]
 			}
 		}],
-	"xiami_artist":[{
+	"xiami_album":[{
 			"Is_Json":0,
 			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
@@ -117,15 +128,18 @@
 		},
 		{
 			"Final_Xpath":{
+					"site_name":["xiami_album"],
+					"ablum_name":["//h1[@property=\"v:itemreviewed\"]/text()"],
 					"collect_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[2]/text()"],
 					"share_counts":["//li[@class=\"do_share\"]/a/span/em/text()"],
-					"love_counts":["//div[@id=\"album_info\"]/ul/li[1]/span/text()"],
+					"love_counts":["//div[@id=\"album_info\"]/ul/li[1]/text()"],
 					"score_level":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/em/text()"],
 					"score_counts":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/i/text()"]
 				}
 		}],
 	"xiami_mv":[{
-			"Index_Url":"http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1",
+			"Is_Json":0,
+			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
 					"xpath":"//div[@class=\"all_page\"]/span/text()",
 					"re":"\\d\\d\\d"
@@ -148,10 +162,25 @@
 		},
 		{
 				"Final_Xpath":{
-					"mv_name":["//div[@class=\"container\"]/div[@id=\"title\"]/h1/text()"],
-					"mv_plays":["//div[@id=\"statistics\"]/ul/li[@class=\"play\"]/text()"],
-					"mv_collects":["//div[@id=\"statistics\"]/ul/li[@class=\"fav\"]/em/text()"],
-					"mv_comments":["//div[@id=\"statistics\"]/ul/li[@class=\"common\"]/em/text()"]
+					"site_name":["xiami_mv"],
+					"artist_name":["//div[@class=\"section\"]/div/div[@id=\"title\"]/p/a/@title"],
+					"update_time":["/"],
+					"mv_name":["//div[@class=\"section\"]/div/div[@id=\"title\"]/h1/text()"],
+					"play_counts":["//div[@id=\"statistics\"]/ul/li[@class=\"play\"]/text()"],
+					"collect_counts":["//div[@id=\"statistics\"]/ul/li[@class=\"fav\"]/em/text()"],
+					"fav_counts":["/"],
+					"download_counts":["/"],
+					"publish_time":["/"],
+					"comment_counts":["//div[@id=\"statistics\"]/ul/li[@class=\"common\"]/em/text()"],
+					"mv_id":["/"],
+					"style_classify":["/"],
+					"reward_counts":["/"],
+					"introduce":["/"],
+					"publish_name":["/"],
+					"publish_id":["/"],
+					"sub_counts":["/"],
+					"fans_counts":["/"],
+					"charge_counts":["/"]
 				}
 		}],
 	"bilibili":[{
@@ -169,11 +198,11 @@
 			},
 			{
 				"Final_Xpath":{
-					"creater_name":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/text()"],
+					"publish_name":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/text()"],
 					"sub_counts":["//div[@class=\"archiveCount\"]/text()"],
 					"fans_counts":["//div[@class=\"up-video-message\"]/div[2]/text()"],
 					"charge_counts":["//span[@class=\"total-num\"]/text()","//sapn/text()"],
-					"creater_id":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/@mid"],
+					"publish_id":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/@mid"],
 					"song_classify":["//div[@class=\"s_tag\"]/ul/li/a/text()"],
 					"mv_name":["//div[@class=\"info\"]/div[@class=\"v-title\"]/h1/text()"],
 					"mv_id":["//meta[@itemprop=\"embedURL\"]/@content"],
@@ -199,7 +228,7 @@
 			{
 				"Final_Xpath":{
 					"mv_name":["//section[@class=\"clearfix wp area head\"]/div[@class=\"title\"]/text()"],
-					"mv_classfy":["//div[@id=\"bd_tag\"]/span/a/text()"],
+					"mv_classify":["//div[@id=\"bd_tag\"]/span/a/text()"],
 					"mv_id":["//div[@id=\"bd_crumb\"]/span[@data-uname]/@data-oid"],
 					"publish_time":["//div[@id=\"bd_crumb\"]/span[@class=\"time\"]/text()"],
 					"play_counts":["//span[@class=\"view fl\"]/span[@class=\"sp2\"]/text()"],
@@ -208,8 +237,8 @@
 					"collect_counts":["//span[@id=\"bd_collection\"]/span[@class=\"sp4\"]/text()"],
 					"banana_counts":["//div[@class=\"fl ico\"]/span[@class=\"sp4\"]/text()"],
 					"introduce_counts":["//div[@class=\"desc\"]/div[@class=\"sp1\"]/text()"],
-					"creater_name":["//div[@class=\"user\"]/a[@class=\"a2\"]/div/text()"],
-					"creater_id":["//div[@class=\"column-right fr\"]/div[@class=\"user\"]/@data-uid"],
+					"publish_name":["//div[@class=\"user\"]/a[@class=\"a2\"]/div/text()"],
+					"publish_id":["//div[@class=\"column-right fr\"]/div[@class=\"user\"]/@data-uid"],
 					"charge_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp1\"]/text()"],
 					"fans_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp2\"]/text()"]
 				}
@@ -254,7 +283,7 @@
 				},
 				{	
 					"Final_Xpath":{
-							"style_classfy":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][2]/following-sibling::a/text()"],
+							"style_classify":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][2]/following-sibling::a/text()"],
 							"artist_name":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][1]/following-sibling::*[1]/text()"],
 							"fav_counts":["//div[@id=\"db-followers\"]/div/h2/span[@class=\"pl\"]/a/text()"],
 							"song_name":["//td[@class=\"title player-playable\"]/@title"],
@@ -362,7 +391,7 @@
 							"publish_name":["//p[@class=\"p_01\"]/a[1]/@title"],
 							"publish_id":["//p[@class=\"p_01\"]/a[1]/@href"],
 							"sub_counts":["/"],
-							"music_classfy":["//li[@class=\"li_05\"]/em/a/@title","li[@class=\"li_05\"]/em/text()"],
+							"music_classify":["//li[@class=\"li_05\"]/em/a/@title","li[@class=\"li_05\"]/em/text()"],
 							"area":["//li[@class=\"li_04\"]/a/@title"]
 						}
 				}],
@@ -395,7 +424,7 @@
 							"publish_person":["//div[@class=\"v_user\"]/a/text()"],
 							"publish_id":["//div[@class=\"v_user\"]/a/@data-spm-anchor-id"],
 							"publish_sub":["/"],
-							"style_classfy":["//div[@class=\"inner fix dvd\"]/p[@class=\"d_p\"][last()]/span[@class=\"d_wrap\"]/text()"]
+							"style_classify":["//div[@class=\"inner fix dvd\"]/p[@class=\"d_p\"][last()]/span[@class=\"d_wrap\"]/text()"]
 						}
 				}]
 
