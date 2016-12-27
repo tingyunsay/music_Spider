@@ -29,7 +29,7 @@ from music_Spider.Total_page_circulate import Total_page_circulate
 
 
 class MusicSpider(scrapy.Spider):
-	name ='2bilibili'
+	name ='2music_station'
 	allowed_domain = []
 		
 	def __init__(self,*args,**kwargs):

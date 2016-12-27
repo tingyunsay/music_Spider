@@ -208,7 +208,7 @@
 					"barrage_counts":["/"]
 				}
 		}],
-	"2bilibili":[{
+	"bilibili":[{
 				"Is_Json":0,
 				"Index_Url":["http://www.bilibili.com/video/music-original-1.html#!page=1"],
 				"Max_Page":{
@@ -259,20 +259,26 @@
 			},
 			{
 				"Final_Xpath":{
+					"site_name":["acfun"],
+					"artist_name":["/"],
+					"update_time":["//div[@id=\"bd_crumb\"]/span[@class=\"time\"]/text()"],
 					"mv_name":["//section[@class=\"clearfix wp area head\"]/div[@class=\"title\"]/text()"],
-					"mv_classify":["//div[@id=\"bd_tag\"]/span/a/text()"],
-					"mv_id":["//div[@id=\"bd_crumb\"]/span[@data-uname]/@data-oid"],
-					"publish_time":["//div[@id=\"bd_crumb\"]/span[@class=\"time\"]/text()"],
 					"play_counts":["//span[@class=\"view fl\"]/span[@class=\"sp2\"]/text()"],
-					"barrage_counts":["//span[@class=\"danmu fl\"]/span[@class=\"sp2\"]/text()"],
-					"comment_counts":["//span[@id=\"bd_comm\"]/span[@class=\"sp2\"]/text()"],
 					"collect_counts":["//span[@id=\"bd_collection\"]/span[@class=\"sp4\"]/text()"],
-					"banana_counts":["//div[@class=\"fl ico\"]/span[@class=\"sp4\"]/text()"],
-					"introduce_counts":["//div[@class=\"desc\"]/div[@class=\"sp1\"]/text()"],
+					"fav_counts":["/"],
+					"download_counts":["/"],
+					"publish_time":["//div[@id=\"bd_crumb\"]/span[@class=\"time\"]/text()"],
+					"comment_counts":["//span[@id=\"bd_comm\"]/span[@class=\"sp2\"]/text()"],
+					"mv_id":["//div[@id=\"bd_crumb\"]/span[@data-uname]/@data-oid"],
+					"style_classify":["//div[@id=\"bd_tag\"]/span/a/text()"],
+					"reward_counts":["//div[@class=\"fl ico\"]/span[@class=\"sp4\"]/text()"],
+					"introduce":["//div[@class=\"desc\"]/div[@class=\"sp1\"]/text()"],
 					"publish_name":["//div[@class=\"user\"]/a[@class=\"a2\"]/div/text()"],
 					"publish_id":["//div[@class=\"column-right fr\"]/div[@class=\"user\"]/@data-uid"],
+					"sub_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp1\"]/text()"],
+					"fans_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp2\"]/text()"],
 					"charge_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp1\"]/text()"],
-					"fans_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp2\"]/text()"]
+					"barrage_counts":["//span[@class=\"danmu fl\"]/span[@class=\"sp2\"]/text()"]
 				}
 			}],
 		"music_station":[{
@@ -290,17 +296,29 @@
 				},
 				{
 					"Final_Xpath":{
-							"mv_name":["//div[@class=\"video_a video_a_current\"]/a/p[@class=\"title statisEle\"]/text()"],
+							"site_name":["music_station"],
 							"artist_name":["//p[@class=\"fl videoName\"]/a/text()"],
+							"update_time":["/"],
+							"mv_name":["//div[@class=\"video_a video_a_current\"]/a/p[@class=\"title statisEle\"]/text()"],
 							"play_counts":["//p[@class=\"fr videoCount\"]/strong/text()"],
 							"collect_counts":["//a[@class=\"keep J_keep statisEle\"]/span/text()"],
 							"fav_counts":["//a[@class=\"like J_recommend statisEle\"]/span/text()"],
+							"download_counts":["//a[@class=\"download statisEle\"]/span/text()"],
 							"publish_time":["//div[@class=\"authorBox\"]/p[@class=\"time\"]/text()"],
 							"comment_counts":["//span[@id=\"total-comment\"]/text()"],
-							"mv_id":["//div[@class=\"video_a video_a_current\"]/@data-video-id"]
+							"mv_id":["//div[@class=\"video_a video_a_current\"]/@data-video-id"],
+							"style_classify":["/"],
+							"reward_counts":["/"],
+							"introduce":["//div[@class=\"des\"]/p/text()"],
+							"publish_name":["//div[@class=\"authorBox\"]/a[2]/text()"],
+							"publish_id":["//div[@class=\"authorBox\"]/a[2]/@href"],
+							"sub_counts":["/"],
+							"fans_counts":["/"],
+							"charge_counts":["/"],
+							"barrage_counts":["/"]
 						}
 				}],
-		"douban":[{
+		"2douban":[{
 					"Is_Json":0,
 					"Index_Url":["https://music.douban.com/artists/genre_page/6/1","https://music.douban.com/artists/genre_page/8/1","https://music.douban.com/artists/genre_page/3/1"],
 					"Max_Page":{
@@ -315,12 +333,21 @@
 				},
 				{	
 					"Final_Xpath":{
-							"style_classify":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][2]/following-sibling::a/text()"],
+							"site_name":["douban"],
 							"artist_name":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][1]/following-sibling::*[1]/text()"],
-							"fav_counts":["//div[@id=\"db-followers\"]/div/h2/span[@class=\"pl\"]/a/text()"],
-							"song_name":["//td[@class=\"title player-playable\"]/@title"],
-							"play_counts":["//td[@class=\"title player-playable\"]/following-sibling::*[1]/text()"],
-							"comment_counts":["//div[@class=\"main\"]/div[@class=\"mod\"]/div[@class=\"hd\"]/h2/span[@class=\"pl\"]/a/text()"]
+							"update_time":[""],
+							"fans_counts":["//div[@id=\"db-followers\"]/div/h2/span[@class=\"pl\"]/a/text()"],
+							"album_counts":["/"],
+							"song_counts":["/"],
+							"mv_counts":["//div[@class=\"main\"]/div[@class=\"mod\"][4]/div[1]/h2/text()"],
+							"dynamic_counts":["/"],
+							"comment_counts":["div[@class=\"main\"]/div[@class=\"mod\"]/div[@class=\"hd\"]/h2/span[@class=\"pl\"]/a/text()"],
+							"style_classify":["//div[@id=\"sp-user-card\"]/div[@class=\"bd\"]/span[@class=\"pl\"][2]/following-sibling::a/text()"],
+							"All_Xpath":{
+									"all_xpath":["//tr[@song_id]"],
+									"song_name":["td[@class=\"title player-playable\"]/@title"],
+									"play_counts":["td[@class=\"title player-playable\"]/following-sibling::*[1]/text()"]
+									}
 						}
 				}],
 		"youku_mv":[{
