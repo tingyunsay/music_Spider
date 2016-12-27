@@ -47,31 +47,55 @@
 		},
 		{
 			"Final_Xpath":{
+					"site_name":["qq_music"],
 					"artist_name":["//h1[@class=\"data__name_txt js_index\"]/@title"],
-					"music_counts":["//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][1]/a/strong/text()"],
+					"update_time":["/"],
+					"fans_counts":["//a[@class=\"mod_btn js_follow\"]/text()"],
 					"album_counts":["//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][2]/a/strong/text()"],
+					"song_counts":["//ul[@class=\"mod_data_statistic\"]/li[@class=\"data_statistic__item\"][1]/a/strong/text()"],
 					"mv_counts":["//ul[@class=\"mod_data_statistic\"]/li[3]/a/strong/text()"],
-					"concern_counts":["//a[@class=\"mod_btn js_follow\"]/text()"]
+					"dynamic_counts":["/"],
+					"comment_counts":["/"],
+					"play_counts":["/"],
+					"style_classify":["/"]
 			}		
 		}],
 	"qq_mv":[{
 			"Is_Json":0,
 			"Index_Url":["https://y.qq.com/portal/mv_lib.html?t5=1"],
 			"Max_Page":{
-					"xpath":"//div[@class=\"mod_page_nav js_pager\"]/a[4]/text()"
+					"xpath":"//div[@class=\"mod_page_nav js_pager\"]/a[4]/text()",
+					"re":".+"
 			}
 		},
 		{
 			"Final_Xpath":{
-					"All_Xpath":["//div[@class=\"mv_list__item_box\"]"],
-					"mv_title":["h3/a/text()"],
-					"artist_name":["div[@class=\"mv_list__singer\"]/a/text()"],
-					"play_counts":["div[@class=\"mv_list__info\"]/span/text()"],
-					"publish_time":["div[@class=\"mv_list__info\"]/text()"],
-					"mv_mid":["a/@data-vid"]
+					"site_name":["qq_mv"],
+					"update_time":["/"],
+					"collect_counts":["/"],
+					"fav_counts":["/"],
+					"download_counts":["/"],
+					"comment_counts":["/"],
+					"style_classify":["/"],
+					"reward_counts":["/"],
+					"introduce":["/"],
+					"publish_name":["/"],
+					"publish_id":["/"],
+					"sub_counts":["/"],
+					"fans_counts":["/"],
+					"charge_counts":["/"],
+					"barrage_counts":["/"],
+					"All_Xpath":{
+							"all_xpath":["//div[@class=\"mv_list__item_box\"]"],
+							"mv_name":["h3/a/text()"],
+							"artist_name":["div[@class=\"mv_list__singer\"]/a/text()"],
+							"play_counts":["div[@class=\"mv_list__info\"]/span/text()"],
+							"publish_time":["div[@class=\"mv_list__info\"]/text()"],
+							"mv_mid":["a/@data-vid"]
+					}
 			}
 		}],
-	"2xiami_music":[{
+	"xiami_music":[{
 			"Is_Json":0,
 			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
@@ -129,10 +153,10 @@
 		{
 			"Final_Xpath":{
 					"site_name":["xiami_album"],
-					"ablum_name":["//h1[@property=\"v:itemreviewed\"]/text()"],
-					"collect_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[2]/text()"],
+					"album_name":["//h1[@property=\"v:itemreviewed\"]/text()"],
 					"share_counts":["//li[@class=\"do_share\"]/a/span/em/text()"],
-					"love_counts":["//div[@id=\"album_info\"]/ul/li[1]/text()"],
+					"collect_counts":["//div[@class=\"music_counts\"]/ul[@class=\"clearfix\"]/li[2]/text()"],
+					"fav_counts":["//div[@id=\"album_info\"]/ul/li[1]/text()"],
 					"score_level":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/em/text()"],
 					"score_counts":["//div[@id=\"album_info\"]/div[@id=\"album_rank\"]/p/i/text()"]
 				}
@@ -180,10 +204,11 @@
 					"publish_id":["/"],
 					"sub_counts":["/"],
 					"fans_counts":["/"],
-					"charge_counts":["/"]
+					"charge_counts":["/"],
+					"barrage_counts":["/"]
 				}
 		}],
-	"bilibili":[{
+	"2bilibili":[{
 				"Is_Json":0,
 				"Index_Url":["http://www.bilibili.com/video/music-original-1.html#!page=1"],
 				"Max_Page":{
@@ -198,19 +223,26 @@
 			},
 			{
 				"Final_Xpath":{
+					"site_name":["bilibili"],
+					"artist_name":["/"],
+					"update_time":["//div[@class=\"tminfo\"]/time/i/text()"],
+					"mv_name":["//div[@class=\"info\"]/div[@class=\"v-title\"]/h1/text()"],
+					"play_counts":["//div[@class=\"v-title-line\"]/span[@id=\"dianji\"]/text()"],
+					"collect_counts":["//span[@id=\"stow_count\"]/text()"],
+					"fav_counts":["/"],
+					"download_counts":["/"],
+					"publish_time":["//div[@class=\"tminfo\"]/time/i/text()"],
+					"comment_counts":["//div[@class=\"b-head\"]/span[@class=\"b-head-t results\"]/text()"],
+					"mv_id":["//meta[@itemprop=\"embedURL\"]/@content"],
+					"style_classify":["//div[@class=\"s_tag\"]/ul/li/a/text()"],
+					"reward_counts":["//span[@id=\"v_ctimes\"]/text()"],
+					"introduce":["//div[@id=\"v_desc\"]/text()"],
 					"publish_name":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/text()"],
+					"publish_id":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/@mid"],
 					"sub_counts":["//div[@class=\"archiveCount\"]/text()"],
 					"fans_counts":["//div[@class=\"up-video-message\"]/div[2]/text()"],
 					"charge_counts":["//span[@class=\"total-num\"]/text()","//sapn/text()"],
-					"publish_id":["//div[@class=\"r-info\"]/div/a[@class=\"name\"]/@mid"],
-					"song_classify":["//div[@class=\"s_tag\"]/ul/li/a/text()"],
-					"mv_name":["//div[@class=\"info\"]/div[@class=\"v-title\"]/h1/text()"],
-					"mv_id":["//meta[@itemprop=\"embedURL\"]/@content"],
-					"play_counts":["//div[@class=\"v-title-line\"]/span[@id=\"dianji\"]/text()"],
-					"barrage_counts":["//span[@id=\"dm_count\"]/text()"],
-					"coin_counts":["//span[@id=\"v_ctimes\"]/text()"],
-					"collect_counts":["//span[@id=\"stow_count\"]/text()"],
-					"publish_time":["//div[@class=\"tminfo\"]/time/i/text()"]
+					"barrage_counts":["//span[@id=\"dm_count\"]/text()"]
 				}
 			}],
 		"acfun":[{
