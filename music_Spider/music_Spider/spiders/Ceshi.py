@@ -29,7 +29,7 @@ from music_Spider.Total_page_circulate import Total_page_circulate
 
 
 class MusicSpider(scrapy.Spider):
-	name ='2music_station'
+	name ='2douban'
 	allowed_domain = []
 		
 	def __init__(self,*args,**kwargs):
@@ -336,7 +336,7 @@ class MusicSpider(scrapy.Spider):
 											'splash':{
 											'endpoint':'render.html',
 											'args':{
-													'wait':0.5,
+													'wait':10,
 													'images':0,
 													'render_all':1
 													}
@@ -344,7 +344,6 @@ class MusicSpider(scrapy.Spider):
 									})
 						request.meta['Some_Info'] = Some_Info
 						request.meta['Final_Xpath'] = Final_Xpath
-						#time.sleep(4)
 						yield request
 		else:
 				for url in detail_url:
@@ -426,10 +425,12 @@ class MusicSpider(scrapy.Spider):
 
 
 	def parse_final(self,response):
+		#我去，这个Final_Xpath竟然只会传递一次......你要是动了这个Final_Xpath，那就无法修改回来了
 		Final_Xpath = response.meta.get('Final_Xpath',None)
 		Some_Info = response.meta.get('Some_Info',None)
-
+		
 		if 'All_Xpath' not in Final_Xpath.keys():
+				print "你他妈是不是到这里来了？"
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)
 				for key in Final_Xpath.keys():
@@ -451,15 +452,14 @@ class MusicSpider(scrapy.Spider):
 				yield l.load_item()
 		else:
 		#感觉这里不能用itemloader的add_xxx方法了，因为要先找到一个页面所有的含有目标item的块，再在每个块里面提取出单个item，itemloader的话是一次性直接全取出，add_xpath不能再细分了;;打算用add_value方法
-				All_Xpath = Final_Xpath['All_Xpath']
-				del Final_Xpath['All_Xpath']
-				#print "\n Final_Xpath is %s \n"%Final_Xpath
+				my_Final_Xpath = Final_Xpath.copy()
+				All_Xpath = my_Final_Xpath['All_Xpath'].copy()
+				del my_Final_Xpath['All_Xpath']
 				all_xpath = All_Xpath['all_xpath']
 				del All_Xpath['all_xpath']
-				#print "\n All_Xpath is %s \n"%All_Xpath
 				for i in response.xpath(all_xpath[0]):
 						item = MusicSpiderItem()
-						l = ItemLoader(item=item, response=response)
+						l = ItemLoader(item=MusicSpiderItem(), response=response)
 						#把All_Xpath中的数据提取出来
 						for key in All_Xpath.keys():
 								item.fields[key] = Field()
@@ -471,7 +471,7 @@ class MusicSpider(scrapy.Spider):
 												map(lambda x:l.add_value(key , i.xpath(x).extract()),All_Xpath[key])
 								except Exception,e:
 										print Exception,",",e
-						#将除了All_Xpath中的数据提取出来，像豆瓣就特别需要这种情况，一般下面的数据是（多次取得），All_Xpath中才是真正的signal的数据
+						#将除了All_Xpath中的数据提取出来，像豆瓣就特别需要这种情况，一般下面的数据是（多次取得），All_Xpath中才是真正单条的数据
 						for key in Final_Xpath.keys():
 								item.fields[key] = Field()
 								try:
@@ -483,7 +483,7 @@ class MusicSpider(scrapy.Spider):
 												map(lambda x:l.add_xpath(key , x),Final_Xpath[key])
 								except Exception,e:
 											print Exception,":",e
-						
+					
 						if Some_Info:
 								for key in Some_Info.keys():
 									item.fields[key] = Field()
@@ -499,3 +499,4 @@ class MusicSpider(scrapy.Spider):
 								#				}
 								#		}
 								#})				
+
