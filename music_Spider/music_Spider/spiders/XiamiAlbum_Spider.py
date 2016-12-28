@@ -29,7 +29,7 @@ from music_Spider.Total_page_circulate import Total_page_circulate
 
 
 class MusicSpider(scrapy.Spider):
-	name ='xiami_artist'
+	name ='xiami_album'
 	allowed_domain = []
 		
 	def __init__(self,*args,**kwargs):
@@ -53,24 +53,33 @@ class MusicSpider(scrapy.Spider):
 		for v in self.config:
 			if len(v[1]) == 2:
 				self.Index_Url = v[1][0]['Index_Url']
+				Is_Json = v[1][0]['Is_Json']
 				Max_Page = v[1][0]['Max_Page']
 				Final_Xpath = v[1][1]['Final_Xpath']
 				#这里我想改成每一个第一页面都渲染一次，同意用xpath去得到最大页面，而不用bs4和正则了，所以在和parse_first之间，再多加一层渲染的处理
-				meta = {
-						'splash':{
-								'endpoint':'render.html',
-								'args':{
-										'wait':0.5,
-										'images':0,
-										'render_all':1
+				if Is_Json == 1:
+						for url in self.Index_Url:
+								request = Request(url,self.parse_json)
+								request.meta['Index_Url'] = url
+								request.meta['Max_Page'] = Max_Page
+								request.meta['Final_Xpath'] = Final_Xpath
+								yield request
+				else:
+						for url in  self.Index_Url:
+								request = Request(url,self.parse_splash,meta={
+										'splash':{
+										'endpoint':'render.html',
+										'args':{
+												'wait':0.5,
+												'images':0,
+												'render_all':1
+												}
 										}
-								}
-						}
-				request = Request(self.Index_Url,self.parse_splash,meta=meta)
-				request.meta['Index_Url'] = self.Index_Url
-				request.meta['Max_Page'] = Max_Page
-				request.meta['Final_Xpath'] = Final_Xpath
-				yield request
+								})				
+								request.meta['Index_Url'] = url
+								request.meta['Max_Page'] = Max_Page
+								request.meta['Final_Xpath'] = Final_Xpath
+								yield request	
 			
 			if len(v[1]) == 3:
 				self.Index_Url = v[1][0]['Index_Url']
@@ -82,7 +91,6 @@ class MusicSpider(scrapy.Spider):
 						for url in self.Index_Url:
 								request = Request(url,self.parse_json)
 								request.meta['Index_Url'] = url
-								request.meta['Is_Json'] = Is_Json
 								request.meta['Max_Page'] = Max_Page
 								request.meta['All_Detail_Page'] = All_Detail_Page
 								request.meta['Final_Xpath'] = Final_Xpath
@@ -100,7 +108,6 @@ class MusicSpider(scrapy.Spider):
 										}
 								})				
 								request.meta['Index_Url'] = url
-								request.meta['Is_Json'] = Is_Json
 								request.meta['Max_Page'] = Max_Page
 								request.meta['All_Detail_Page'] = All_Detail_Page
 								request.meta['Final_Xpath'] = Final_Xpath
@@ -329,7 +336,8 @@ class MusicSpider(scrapy.Spider):
 											'splash':{
 											'endpoint':'render.html',
 											'args':{
-													'wait':0.5,
+													#只有aiyiyi需要load 8s，才能拿到播放量
+													'wait':10,
 													'images':0,
 													'render_all':1
 													}
@@ -337,7 +345,6 @@ class MusicSpider(scrapy.Spider):
 									})
 						request.meta['Some_Info'] = Some_Info
 						request.meta['Final_Xpath'] = Final_Xpath
-						#time.sleep(4)
 						yield request
 		else:
 				for url in detail_url:
@@ -406,7 +413,7 @@ class MusicSpider(scrapy.Spider):
 										'splash':{
 										'endpoint':'render.html',
 										'args':{
-												'wait':5,
+												'wait':0.5,
 												'images':0,
 												'render_all':1
 												}
@@ -419,9 +426,10 @@ class MusicSpider(scrapy.Spider):
 
 
 	def parse_final(self,response):
+		#我去，这个Final_Xpath竟然只会传递一次......你要是动了这个Final_Xpath，那就无法修改回来了
 		Final_Xpath = response.meta.get('Final_Xpath',None)
 		Some_Info = response.meta.get('Some_Info',None)
-
+		
 		if 'All_Xpath' not in Final_Xpath.keys():
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)
@@ -429,8 +437,10 @@ class MusicSpider(scrapy.Spider):
 						item.fields[key] = Field()
 						try:
 								#itemloader在add_xxx方法找不到值的时候，会自动忽略这个字段，可是我不想忽略它，这时候需要将其置为空("")
-								if "".join(map(lambda x:response.xpath(x).extract(),Final_Xpath[key])[0]) == '':			
+								if "".join(map(lambda x:response.xpath(x).extract(),Final_Xpath[key])[0]) == '' and key != "site_name":		
 										map(lambda x:l.add_value(key , ""),Final_Xpath[key])
+								elif key == "site_name":
+										map(lambda x:l.add_value(key , x),Final_Xpath[key])
 								else:
 										map(lambda x:l.add_xpath(key , x),Final_Xpath[key])
 						except Exception,e:
@@ -442,21 +452,38 @@ class MusicSpider(scrapy.Spider):
 				yield l.load_item()
 		else:
 		#感觉这里不能用itemloader的add_xxx方法了，因为要先找到一个页面所有的含有目标item的块，再在每个块里面提取出单个item，itemloader的话是一次性直接全取出，add_xpath不能再细分了;;打算用add_value方法
-				All_Xpath = Final_Xpath['All_Xpath']
-				del Final_Xpath['All_Xpath']
-				for i in response.xpath(All_Xpath):
+				my_Final_Xpath = Final_Xpath.copy()
+				All_Xpath = my_Final_Xpath['All_Xpath'].copy()
+				del my_Final_Xpath['All_Xpath']
+				all_xpath = All_Xpath['all_xpath']
+				del All_Xpath['all_xpath']
+				for i in response.xpath(all_xpath[0]):
 						item = MusicSpiderItem()
 						l = ItemLoader(item=MusicSpiderItem(), response=response)
-						for key in Final_Xpath.keys():
+						#把All_Xpath中的数据提取出来
+						for key in All_Xpath.keys():
 								item.fields[key] = Field()
 								try:
 										#itemloader在add_xxx方法找不到值的时候，会自动忽略这个字段，可是我不想忽略它，这时候需要将其置为空("")
-										if "".join(map(lambda x:response.xpath(x).extract(),Final_Xpath[key])[0]) == '':
-												map(lambda x:l.add_value(key , ""),Final_Xpath[key])
+										if "".join(map(lambda x:i.xpath(x).extract(),All_Xpath[key])[0]) == '':
+												map(lambda x:l.add_value(key , ""),All_Xpath[key])
 										else:
-												map(lambda x:l.add_xpath(key , x),Final_Xpath[key])
+												map(lambda x:l.add_value(key , i.xpath(x).extract()),All_Xpath[key])
 								except Exception,e:
 										print Exception,",",e
+						#将除了All_Xpath中的数据提取出来，像豆瓣就特别需要这种情况，一般下面的数据是（多次取得），All_Xpath中才是真正单条的数据
+						for key in my_Final_Xpath.keys():
+								item.fields[key] = Field()
+								try:
+										if "".join(map(lambda x:response.xpath(x).extract(),my_Final_Xpath[key])[0]) == '' and key != "site_name":		
+												map(lambda x:l.add_value(key , ""),my_Final_Xpath[key])
+										elif key == "site_name":
+												map(lambda x:l.add_value(key , x),my_Final_Xpath[key])
+										else:
+												map(lambda x:l.add_xpath(key , x),my_Final_Xpath[key])
+								except Exception,e:
+											print Exception,":",e
+					
 						if Some_Info:
 								for key in Some_Info.keys():
 									item.fields[key] = Field()
@@ -472,3 +499,4 @@ class MusicSpider(scrapy.Spider):
 								#				}
 								#		}
 								#})				
+

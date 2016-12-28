@@ -29,7 +29,7 @@ from music_Spider.Total_page_circulate import Total_page_circulate
 
 
 class MusicSpider(scrapy.Spider):
-	name ='2douban'
+	name ='2letv'
 	allowed_domain = []
 		
 	def __init__(self,*args,**kwargs):
@@ -336,6 +336,7 @@ class MusicSpider(scrapy.Spider):
 											'splash':{
 											'endpoint':'render.html',
 											'args':{
+													#只有aiyiyi需要load 8s，才能拿到播放量
 													'wait':10,
 													'images':0,
 													'render_all':1
@@ -412,7 +413,7 @@ class MusicSpider(scrapy.Spider):
 										'splash':{
 										'endpoint':'render.html',
 										'args':{
-												'wait':5,
+												'wait':0.5,
 												'images':0,
 												'render_all':1
 												}
@@ -430,7 +431,6 @@ class MusicSpider(scrapy.Spider):
 		Some_Info = response.meta.get('Some_Info',None)
 		
 		if 'All_Xpath' not in Final_Xpath.keys():
-				print "你他妈是不是到这里来了？"
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)
 				for key in Final_Xpath.keys():
@@ -472,15 +472,15 @@ class MusicSpider(scrapy.Spider):
 								except Exception,e:
 										print Exception,",",e
 						#将除了All_Xpath中的数据提取出来，像豆瓣就特别需要这种情况，一般下面的数据是（多次取得），All_Xpath中才是真正单条的数据
-						for key in Final_Xpath.keys():
+						for key in my_Final_Xpath.keys():
 								item.fields[key] = Field()
 								try:
-										if "".join(map(lambda x:response.xpath(x).extract(),Final_Xpath[key])[0]) == '' and key != "site_name":		
-												map(lambda x:l.add_value(key , ""),Final_Xpath[key])
+										if "".join(map(lambda x:response.xpath(x).extract(),my_Final_Xpath[key])[0]) == '' and key != "site_name":		
+												map(lambda x:l.add_value(key , ""),my_Final_Xpath[key])
 										elif key == "site_name":
-												map(lambda x:l.add_value(key , x),Final_Xpath[key])
+												map(lambda x:l.add_value(key , x),my_Final_Xpath[key])
 										else:
-												map(lambda x:l.add_xpath(key , x),Final_Xpath[key])
+												map(lambda x:l.add_xpath(key , x),my_Final_Xpath[key])
 								except Exception,e:
 											print Exception,":",e
 					
