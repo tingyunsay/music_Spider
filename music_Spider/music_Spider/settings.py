@@ -14,6 +14,7 @@ BOT_NAME = 'music_Spider'
 SPIDER_MODULES = ['music_Spider.spiders']
 NEWSPIDER_MODULE = 'music_Spider.spiders'
 
+COMMANDS_MODULE = 'music_Spider.commands'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'music_Spider (+http://www.yourdomain.com)'
@@ -27,7 +28,7 @@ NEWSPIDER_MODULE = 'music_Spider.spiders'
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.5
+DOWNLOAD_DELAY = 1
 LOG_LEVEL = 'DEBUG'
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -60,7 +61,8 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 DUPEFILTER_CLASS = 'scrapyjs.SplashAwareDupeFilter'
-SPLASH_URL = 'http://192.168.217.40:8050/'
+#SPLASH_URL = 'http://127.0.0.1:8050/'
+SPLASH_URL = 'http://192.168.217.41:8050/'
 
 
 # Enable or disable extensions

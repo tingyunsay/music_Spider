@@ -36,8 +36,6 @@ class MusicSpider(scrapy.Spider):
 		super(MusicSpider,self).__init__(*args,**kwargs)
 		#用一个list来存放所有的json配置中的k,v，变成了一个元祖list，遍历这个list
 		#scrapy.log.start("./log.txt",loglevel=INFO,logstdout=True)
-		self.now = time.time()
-		self.one_month_ago = datetime.datetime(time.localtime(self.now).tm_year,time.localtime(self.now).tm_mon-1,time.localtime(self.now).tm_mday)
 		self.config = []
 		self.Index_Url = ""
 			
@@ -336,7 +334,7 @@ class MusicSpider(scrapy.Spider):
 											'splash':{
 											'endpoint':'render.html',
 											'args':{
-													#只有aiyiyi需要load 8s，才能拿到播放量
+													#只有aiyiyi需要load 10s，才能拿到播放量
 													'wait':10,
 													'images':0,
 													'render_all':1

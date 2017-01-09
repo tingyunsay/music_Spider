@@ -1,5 +1,5 @@
 {
-	"damaiwang":[{
+	"2damaiwang":[{
 			"Index_Url":"http://www.damai.cn/ajaxArtist.aspx?type=5&pageIndex=1",
 			"Max_Page":{
 				"soup":"",
@@ -32,7 +32,7 @@
 				"concert_price":"//div[@class=\"ct\"]/ul[@class=\"lst \"]//li/@data-pricename"
 			}
 		}],
-	"qq_music":[{
+	"2qq_music":[{
 			"Is_Json":0,
 			"Index_Url":["https://y.qq.com/portal/singerlist.html#t4=1"],
 			"Max_Page":{
@@ -96,7 +96,7 @@
 					}
 			}
 		}],
-	"xiami_music":[{
+	"2xiami_music":[{
 			"Is_Json":0,
 			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
@@ -125,7 +125,7 @@
 					"song_name":["/"]
 			}
 		}],
-	"xiami_album":[{
+	"2xiami_album":[{
 			"Is_Json":0,
 			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
@@ -322,8 +322,19 @@
 				}],
 		"douban":[{
 					"Is_Json":0,
-					"Index_Url":["https://music.douban.com/artists/genre_page/6/1"],
-					"just_bak":["https://music.douban.com/artists/genre_page/8/1","https://music.douban.com/artists/genre_page/3/1"],
+					"Index_Url":[
+								"https://music.douban.com/artists/genre_page/1/1",
+								"https://music.douban.com/artists/genre_page/2/1",
+								"https://music.douban.com/artists/genre_page/3/1",
+								"https://music.douban.com/artists/genre_page/4/1",
+								"https://music.douban.com/artists/genre_page/5/1",
+								"https://music.douban.com/artists/genre_page/6/1",
+								"https://music.douban.com/artists/genre_page/7/1",
+								"https://music.douban.com/artists/genre_page/8/1",
+								"https://music.douban.com/artists/genre_page/9/1",
+								"https://music.douban.com/artists/genre_page/10/1",
+								"https://music.douban.com/artists/genre_page/11/1"
+								],
 					"Max_Page":{
 							"xpath":"//div[@class=\"paginator\"]/span[@class=\"thispage\"]/@data-total-page",
 							"re":".+"
@@ -358,7 +369,32 @@
 					"Index_Url":["http://list.youku.com/category/show/c_95_g_%E6%91%87%E6%BB%9A_r_2016_s_1_d_1_p_1",
 								"http://list.youku.com/category/show/c_95_g_%E8%88%9E%E6%9B%B2_r_2016_s_1_d_1_p_1",
 								"http://list.youku.com/category/show/c_95_g_%E7%94%B5%E5%AD%90_r_2016_s_1_d_1_p_1",
-								"http://list.youku.com/category/show/c_95_g_R&B_r_2016_s_1_d_1_p_1"],
+								"http://list.youku.com/category/show/c_95_g_R&B_r_2016_s_1_d_1_p_1",
+								"http://list.youku.com/category/show/c_95_g_HIP-HOP_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E4%B9%A1%E6%9D%91_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B0%91%E6%97%8F_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%8B%89%E4%B8%81_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E7%88%B5%E5%A3%AB_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E9%9B%B7%E9%AC%BC_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%96%B0%E4%B8%96%E7%BA%AA_r_2016_s_1_d_1_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E5%8F%A4%E5%85%B8_r_2016_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E9%9F%B3%E4%B9%90%E5%89%A7_r_2016_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E8%BD%BB%E9%9F%B3%E4%B9%90_r_2016_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E5%A4%A7%E9%99%86_r_2016_sg_%E5%A5%B3_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E5%A4%A7%E9%99%86_r_2016_sg_%E7%94%B7_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E5%A4%A7%E9%99%86_r_2016_sg_%E4%B9%90%E9%98%9F%E7%BB%84%E5%90%88_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E5%A4%A7%E9%99%86_r_2016_sg_%E7%BE%A4%E6%98%9F_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%B8%AF%E5%8F%B0_r_2016_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E5%85%B6%E4%BB%96_r_2016_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%97%A5%E9%9F%A9_r_2016_sg_%E5%A5%B3_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%97%A5%E9%9F%A9_r_2016_sg_%E7%94%B7_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%97%A5%E9%9F%A9_r_2016_sg_%E4%B9%90%E9%98%9F%E7%BB%84%E5%90%88_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%97%A5%E9%9F%A9_r_2016_sg_%E7%BE%A4%E6%98%9F_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%AC%A7%E7%BE%8E_r_2016_sg_%E5%A5%B3_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%AC%A7%E7%BE%8E_r_2016_sg_%E7%94%B7_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%AC%A7%E7%BE%8E_r_2016_sg_%E4%B9%90%E9%98%9F%E7%BB%84%E5%90%88_s_1_d_4_p_1.html",
+								"http://list.youku.com/category/show/c_95_g_%E6%B5%81%E8%A1%8C_a_%E6%AC%A7%E7%BE%8E_r_2016_sg_%E7%BE%A4%E6%98%9F_s_1_d_4_p_1.html"
+								],
 					"Max_Page":{
 							"xpath":"//div[@class=\"yk-pager\"]/ul[@class=\"yk-pages\"]/li[last()-1]/a/text()",
 							"re":".+"
@@ -476,7 +512,7 @@
 							"barrage_counts":["/"]
 						}
 				}],
-		"tudou":[{
+		"2tudou":[{
 					"Is_Json":"0",
 					"Index_Url":["http://www.tudou.com/list/ach12a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2sort1.html"],
 					"Max_Page":{
