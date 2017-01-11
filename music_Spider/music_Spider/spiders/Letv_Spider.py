@@ -373,7 +373,6 @@ class MusicSpider(scrapy.Spider):
 		except Exception,e:
 				print Exception,":",e
 		for url in detail_url:
-				print "now the url is in json4 : %s"%url
 				request = Request(url,callback = self.parse_final,meta={
 									'splash':{
 									'endpoint':'render.html',
@@ -461,12 +460,10 @@ class MusicSpider(scrapy.Spider):
 											})
 						request.meta['Some_Info'] = Some_Info
 						request.meta['Final_Xpath'] = Final_Xpath
-						#time.sleep(4)
 						yield request
 		else:
 				try:
 					for url in detail_url:
-						#print "now the url is %s"%url
 						request = Request(url,callback = self.parse_third)
 						request.meta['Index_Url'] = Index_Url
 						request.meta['Target_Detail_Page'] = Target_Detail_Page
@@ -489,7 +486,6 @@ class MusicSpider(scrapy.Spider):
 								Some_Info[key] = response.xpath(Target_Detail_Page['Some_Info'][key]).extract()[0]
 						except Exception,e:
 								print Exception,":",e
-		#print "now the url is %s, and the Some_Info is %s"%(response.url,Some_Info["artist_name"])
 		detail_url = Relative_to_Absolute(Index_Url,response.xpath(Target_Detail_Page['xpath']).extract())	
 		for url in detail_url:
 				request = scrapy.Request(url,callback = self.parse_final,meta = {
@@ -504,7 +500,6 @@ class MusicSpider(scrapy.Spider):
 								})				
 				request.meta['Some_Info'] = Some_Info
 				request.meta['Final_Xpath'] = Final_Xpath
-				#print "我就想看看传递过去的Some_Info是%s,并且当前访问的url是%s"%(Some_Info['artist_name'],url)
 				yield request
 
 

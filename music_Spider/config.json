@@ -63,6 +63,7 @@
 		}],
 	"qq_mv":[{
 			"Is_Json":0,
+			"Splash":1,
 			"Index_Url":["https://y.qq.com/portal/mv_lib.html?t5=1"],
 			"Max_Page":{
 					"xpath":"//div[@class=\"mod_page_nav js_pager\"]/a[4]/text()",
@@ -165,6 +166,7 @@
 		}],
 	"xiami_mv":[{
 			"Is_Json":0,
+			"Splash":0,
 			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
 					"xpath":"//div[@class=\"all_page\"]/span/text()",
@@ -192,7 +194,7 @@
 					"artist_name":["//div[@class=\"section\"]/div/div[@id=\"title\"]/p/a/@title"],
 					"update_time":["/"],
 					"mv_name":["//div[@class=\"section\"]/div/div[@id=\"title\"]/h1/text()"],
-					"play_counts":["//div[@id=\"statistics\"]/ul/li[@class=\"play\"]/text()"],
+					"play_counts":["//div[@id=\"statistics\"]/ul/li[@class=\"play\"]/em/text()"],
 					"collect_counts":["//div[@id=\"statistics\"]/ul/li[@class=\"fav\"]/em/text()"],
 					"fav_counts":["/"],
 					"download_counts":["/"],
@@ -212,6 +214,7 @@
 		}],
 	"bilibili":[{
 				"Is_Json":0,
+				"Splash":1,
 				"Index_Url":["http://www.bilibili.com/video/music-original-1.html#!page=1"],
 				"Max_Page":{
 					"xpath":"//a[@class=\"p endPage\"]/text()",
@@ -220,7 +223,8 @@
 			},
 			{
 				"All_Detail_Page":{
-					"xpath":["//ul[@class=\"vd-list l2\"]/li/div/div/a[1]/@href"]
+					"xpath":["//ul[@class=\"vd-list l2\"]/li/div/div/a[1]/@href"],
+					"splash":1
 				}
 			},
 			{
@@ -249,6 +253,7 @@
 			}],
 		"acfun":[{
 				"Is_Json":1,
+				"Splash":1,
 				"Index_Url":["http://www.acfun.tv/list/getlist?channelId=136&sort=0&pageSize=20&pageNo=1"],
 				"Max_Page":{
 						"index":["data","params","pageCount"]
@@ -265,12 +270,12 @@
 					"artist_name":["/"],
 					"update_time":["//div[@id=\"bd_crumb\"]/span[@class=\"time\"]/text()"],
 					"mv_name":["//section[@class=\"clearfix wp area head\"]/div[@class=\"title\"]/text()"],
-					"play_counts":["//span[@class=\"view fl\"]/span[@class=\"sp2\"]/text()"],
+					"play_counts":["/"],
 					"collect_counts":["//span[@id=\"bd_collection\"]/span[@class=\"sp4\"]/text()"],
 					"fav_counts":["/"],
 					"download_counts":["/"],
 					"publish_time":["//div[@id=\"bd_crumb\"]/span[@class=\"time\"]/text()"],
-					"comment_counts":["//span[@id=\"bd_comm\"]/span[@class=\"sp2\"]/text()"],
+					"comment_counts":["/"],
 					"mv_id":["//div[@id=\"bd_crumb\"]/span[@data-uname]/@data-oid"],
 					"style_classify":["//div[@id=\"bd_tag\"]/span/a/text()"],
 					"reward_counts":["//div[@class=\"fl ico\"]/span[@class=\"sp4\"]/text()"],
@@ -280,11 +285,12 @@
 					"sub_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp1\"]/text()"],
 					"fans_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp2\"]/text()"],
 					"charge_counts":["//div[@class=\"bottom\"]/div[@class=\"crumbs\"]/span[@class=\"sp1\"]/text()"],
-					"barrage_counts":["//span[@class=\"danmu fl\"]/span[@class=\"sp2\"]/text()"]
+					"barrage_counts":["/"]
 				}
 			}],
 		"music_station":[{
 					"Is_Json":0,
+					"Splash":1,
 					"Index_Url":["http://mv.yinyuetai.com/all?pageType=page&sort=weekViews&page=1"],
 					"Max_Page":{
 							"xpath":"//span[@class=\"separator-total J_pageList\"]/text()",
@@ -309,7 +315,7 @@
 							"publish_time":["//div[@class=\"authorBox\"]/p[@class=\"time\"]/text()"],
 							"comment_counts":["//span[@id=\"total-comment\"]/text()"],
 							"mv_id":["//div[@class=\"video_a video_a_current\"]/@data-video-id"],
-							"style_classify":["/"],
+							"style_classify":["//div[@class=\"tagList\"]/a[@target]/text()"],
 							"reward_counts":["/"],
 							"introduce":["//div[@class=\"des\"]/p/text()"],
 							"publish_name":["//div[@class=\"authorBox\"]/a[2]/text()"],
@@ -320,7 +326,7 @@
 							"barrage_counts":["/"]
 						}
 				}],
-		"douban":[{
+		"2douban":[{
 					"Is_Json":0,
 					"Index_Url":[
 								"https://music.douban.com/artists/genre_page/1/1",
@@ -366,6 +372,7 @@
 				}],
 		"youku_mv":[{
 					"Is_Json":0,
+					"Splash":1,
 					"Index_Url":["http://list.youku.com/category/show/c_95_g_%E6%91%87%E6%BB%9A_r_2016_s_1_d_1_p_1",
 								"http://list.youku.com/category/show/c_95_g_%E8%88%9E%E6%9B%B2_r_2016_s_1_d_1_p_1",
 								"http://list.youku.com/category/show/c_95_g_%E7%94%B5%E5%AD%90_r_2016_s_1_d_1_p_1",
@@ -431,6 +438,7 @@
 				}],
 		"aiqiyi_mv":[{
 					"Is_Json":0,
+					"Splash":1,
 					"Index_Url":["http://list.iqiyi.com/www/5/-------------11-30-2-iqiyi--.html"],
 					"Max_Page":{
 							"xpath":"//span[@class=\"curPage\"]/text()",
