@@ -23,6 +23,11 @@ else:
 		os.system("docker restart %s"%splash_image_id)
 		print "Splash exists , restart success ....."
 
+temp_file = './temp.txt'
+
+if os.path.exists(temp_file):
+		os.remove(temp_file)
+		print "Delete temp_file success ....."
 
 
 
