@@ -32,7 +32,7 @@
 				"concert_price":"//div[@class=\"ct\"]/ul[@class=\"lst \"]//li/@data-pricename"
 			}
 		}],
-	"2qq_music":[{
+	"qq_music":[{
 			"Is_Json":0,
 			"Index_Url":["https://y.qq.com/portal/singerlist.html#t4=1"],
 			"Max_Page":{
@@ -93,11 +93,11 @@
 							"artist_name":["div[@class=\"mv_list__singer\"]/a/text()"],
 							"play_counts":["div[@class=\"mv_list__info\"]/span/text()"],
 							"publish_time":["div[@class=\"mv_list__info\"]/text()"],
-							"mv_mid":["a/@data-vid"]
+							"mv_id":["a/@data-vid"]
 					}
 			}
 		}],
-	"2xiami_music":[{
+	"xiami_music":[{
 			"Is_Json":0,
 			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
@@ -126,7 +126,7 @@
 					"song_name":["/"]
 			}
 		}],
-	"2xiami_album":[{
+	"xiami_album":[{
 			"Is_Json":0,
 			"Index_Url":["http://www.xiami.com/artist/index/c/1/type/0/class/0/page/1"],
 			"Max_Page":{
@@ -326,7 +326,7 @@
 							"barrage_counts":["/"]
 						}
 				}],
-		"2douban":[{
+		"douban":[{
 					"Is_Json":0,
 					"Index_Url":[
 								"https://music.douban.com/artists/genre_page/1/1",
@@ -453,7 +453,7 @@
 				{
 					"Final_Xpath":{
 							"site_name":["aiqiyi_mv"],
-							"artist_name":["//h2[@class=\"jiemu-tit\"]/a/span/text()"],
+							"artist_name":["//strong[@id=\"widget-videotitle\"]/text()"],
 							"update_time":["/"],
 							"mv_name":["//strong[@id=\"widget-videotitle\"]/text()"],
 							"play_counts":["//span[@id=\"widget-playcount\"]/text()"],
@@ -468,8 +468,8 @@
 							"introduce":["//p[@id=\"widget-vshort-lesswrap\"]/text()"],
 							"publish_name":["//a[@class=\"textOverflow play-album-userName\"]/@title"],
 							"publish_id":["//a[@class=\"textOverflow play-album-userName\"]/@href"],
-							"sub_counts":["//span[@class=\"widget-vshort-totalnum\"]/text()"],
-							"fans_counts":["//span[@class=\"sub-num-wrap\"]/span/@data-num"],
+							"sub_counts":["//span[@id=\"widget-vshort-totalnum\"]/text()"],
+							"fans_counts":["//span[@id=\"widget-vshort-bknum\"]/text()"],
 							"charge_counts":["/"],
 							"barrage_counts":["/"]
 						}
@@ -502,12 +502,10 @@
 							"artist_name":["//li[@class=\"li_06\"]/em/a/@title"],
 							"update_time":["/"],
 							"mv_name":["//h1[@class=\"j-video-name video-name\"]/@title"],
-							"play_counts":["//em[@id=\"video_playcount\"]/@title"],
 							"collect_counts":["/"],
 							"fav_counts":["//li[@class=\"praise j-praise\"]/a/b/text()"],
 							"download_counts":["/"],
 							"publish_time":["//li[@class=\"li_03\"]/text()"],
-							"comment_counts":["//em[@id=\"video_commentcount\"]/text()"],
 							"mv_id":["//a[@class=\"a_jujiTemp cur\"]/@data-vid"],
 							"style_classify":["//li[@class=\"li_05\"]/em/a/@title","li[@class=\"li_05\"]/em/text()"],
 							"reward_counts":["/"],
@@ -517,10 +515,14 @@
 							"sub_counts":["/"],
 							"fans_counts":["/"],
 							"charge_counts":["/"],
-							"barrage_counts":["/"]
+							"barrage_counts":["/"],
+							"json_data":{
+									"play_counts":["media_play_count"],
+									"comment_counts":["vcomm_count"]
+									}
 						}
 				}],
-		"2tudou":[{
+		"tudou":[{
 					"Is_Json":"0",
 					"Index_Url":["http://www.tudou.com/list/ach12a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2sort1.html"],
 					"Max_Page":{
