@@ -251,7 +251,7 @@
 					"barrage_counts":["//span[@id=\"dm_count\"]/text()"]
 				}
 			}],
-		"acfun":[{
+	"acfun":[{
 				"Is_Json":1,
 				"Splash":1,
 				"Index_Url":["http://www.acfun.tv/list/getlist?channelId=136&sort=0&pageSize=20&pageNo=1"],
@@ -288,7 +288,7 @@
 					"barrage_counts":["/"]
 				}
 			}],
-		"music_station":[{
+	"music_station":[{
 					"Is_Json":0,
 					"Splash":1,
 					"Index_Url":["http://mv.yinyuetai.com/all?pageType=page&sort=weekViews&page=1"],
@@ -326,7 +326,7 @@
 							"barrage_counts":["/"]
 						}
 				}],
-		"douban":[{
+	"douban":[{
 					"Is_Json":0,
 					"Index_Url":[
 								"https://music.douban.com/artists/genre_page/1/1",
@@ -370,7 +370,7 @@
 									}
 						}
 				}],
-		"youku_mv":[{
+	"youku_mv":[{
 					"Is_Json":0,
 					"Splash":1,
 					"Index_Url":["http://list.youku.com/category/show/c_95_g_%E6%91%87%E6%BB%9A_r_2016_s_1_d_1_p_1",
@@ -436,7 +436,7 @@
 							"barrage_counts":["/"]
 						}
 				}],
-		"aiqiyi_mv":[{
+	"aiqiyi_mv":[{
 					"Is_Json":0,
 					"Splash":1,
 					"Index_Url":["http://list.iqiyi.com/www/5/-------------11-30-2-iqiyi--.html"],
@@ -474,7 +474,7 @@
 							"barrage_counts":["/"]
 						}
 				}],
-		"letv":[{
+	"letv":[{
 					"Is_Json":1,
 					"Index_Url":["http://list.le.com/apin/stardata.json?d=3&w=465004&p=1"],
 					"Max_Page":{
@@ -522,7 +522,7 @@
 									}
 						}
 				}],
-		"tudou":[{
+	"tudou":[{
 					"Is_Json":"0",
 					"Index_Url":["http://www.tudou.com/list/ach12a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2sort1.html"],
 					"Max_Page":{
