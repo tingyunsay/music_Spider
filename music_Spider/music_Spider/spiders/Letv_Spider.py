@@ -26,6 +26,7 @@ from scrapy.item import Item,Field
 import hashlib
 from music_Spider.Path_translate import Relative_to_Absolute,Get_Valid_Url,get_HeadUrl,get_letv_url,get_letv_url2
 from music_Spider.Total_page_circulate import Total_page_circulate,Total_page_circulate2
+from music_Spider.Get_Json_Content import Get_Json_Content
 
 
 class MusicSpider(scrapy.Spider):
@@ -167,8 +168,7 @@ class MusicSpider(scrapy.Spider):
 		max_pages = Total_page_circulate(self.name,int(max_pages))
 		print "最大页数是:%d"%max_pages
 		if All_Detail_Page is None:
-				#for i in range(1,max_pages+1):
-				for i in range(1,2):
+				for i in range(1,max_pages+1):
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_final,dont_filter=True,meta={
 											'splash':{
@@ -183,8 +183,7 @@ class MusicSpider(scrapy.Spider):
 						request.meta['Final_Xpath'] = Final_Xpath
 						yield request
 		else:
-				#for i in range(1,int(max_pages)+1):
-				for i in range(1,2):
+				for i in range(1,int(max_pages)+1):
 						try:
 								url = urls.format(page=str(i))
 						except Exception,e:
@@ -228,8 +227,7 @@ class MusicSpider(scrapy.Spider):
 		max_pages = Total_page_circulate(self.name,int(res_json))
 		print "最大页数是:%d"%max_pages
 		if All_Detail_Page is None:
-				#for i in range(1,max_pages+1):
-				for i in range(4,5):
+				for i in range(1,max_pages+1):
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_final,dont_filter=True,meta={
 											'splash':{
@@ -244,8 +242,7 @@ class MusicSpider(scrapy.Spider):
 						request.meta['Final_Xpath'] = Final_Xpath
 						yield request
 		else:
-				#for i in range(1,int(max_pages)+1):
-				for i in range(4,5):
+				for i in range(1,int(max_pages)+1):
 						try:
 								url = urls.format(page=str(i))
 						except Exception,e:
@@ -326,7 +323,7 @@ class MusicSpider(scrapy.Spider):
 		max_pages = Total_page_circulate2(self.name,int(res_json))
 		#print "最大页数是:%d"%max_pages
 
-		for i in range(1,2):
+		for i in range(1,max_pages+1):
 				if Target_Detail_Page is None:
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_final,meta={
@@ -344,7 +341,6 @@ class MusicSpider(scrapy.Spider):
 						yield request
 				else:
 						url = urls.format(page=str(i))
-						#print "now the url is in json3 : %s"%url
 						request = Request(url,callback = self.parse_json4)
 						request.meta['Index_Url'] = Index_Url
 						request.meta['Target_Detail_Page'] = Target_Detail_Page
@@ -383,6 +379,7 @@ class MusicSpider(scrapy.Spider):
 											}
 									}
 							})
+				request.meta['pid'] = re.search("\d+",url).group()
 				request.meta['Final_Xpath'] = Final_Xpath
 				yield request
 
@@ -506,11 +503,22 @@ class MusicSpider(scrapy.Spider):
 	def parse_final(self,response):
 		#我去，这个Final_Xpath竟然只会传递一次......你要是动了这个Final_Xpath，那就无法修改回来了
 		Final_Xpath = response.meta.get('Final_Xpath',None)
+		pid = response.meta.get('pid',None)
 		Some_Info = response.meta.get('Some_Info',None)
 		
 		if 'All_Xpath' not in Final_Xpath.keys():
+				my_Final_Xpath = Final_Xpath.copy()
 				item = MusicSpiderItem()
 				l = ItemLoader(item=item, response=response)
+				
+				if "json_data" in my_Final_Xpath.keys():
+						json_data = Get_Json_Content(pid , self.name)
+						for key in my_Final_Xpath['json_data'].keys():
+								item.fields[key] = Field()
+								if ''.join(my_Final_Xpath['json_data'][key]) in json_data.keys():
+										map(lambda x:l.add_value(key , json_data[x]),my_Final_Xpath['json_data'][key])
+						del my_Final_Xpath['json_data']
+					
 				for key in Final_Xpath.keys():
 						item.fields[key] = Field()
 						try:

@@ -29,7 +29,7 @@ from music_Spider.Total_page_circulate import Total_page_circulate
 
 
 class MusicSpider(scrapy.Spider):
-	name ='2letv'
+	name ='exam'
 	allowed_domain = []
 		
 	def __init__(self,*args,**kwargs):
@@ -170,8 +170,7 @@ class MusicSpider(scrapy.Spider):
 		max_pages = Total_page_circulate(self.name,int(max_pages))
 		print "最大页数是:%d"%max_pages
 		if All_Detail_Page is None:
-				#for i in range(1,max_pages+1):
-				for i in range(1,2):
+				for i in range(1,max_pages+1):
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_final,dont_filter=True,meta={
 											'splash':{
@@ -186,8 +185,7 @@ class MusicSpider(scrapy.Spider):
 						request.meta['Final_Xpath'] = Final_Xpath
 						yield request
 		else:
-				#for i in range(1,int(max_pages)+1):
-				for i in range(1,2):
+				for i in range(1,max_pages+1):
 						try:
 								url = urls.format(page=str(i))
 						except Exception,e:
@@ -231,8 +229,7 @@ class MusicSpider(scrapy.Spider):
 		max_pages = Total_page_circulate(self.name,int(res_json))
 		print "最大页数是:%d"%max_pages
 		if All_Detail_Page is None:
-				#for i in range(1,max_pages+1):
-				for i in range(1,2):
+				for i in range(1,max_pages+1):
 						url = urls.format(page=str(i))
 						request = Request(url,callback = self.parse_final,dont_filter=True,meta={
 											'splash':{
@@ -247,8 +244,7 @@ class MusicSpider(scrapy.Spider):
 						request.meta['Final_Xpath'] = Final_Xpath
 						yield request
 		else:
-				#for i in range(1,int(max_pages)+1):
-				for i in range(1,2):
+				for i in range(1,int(max_pages)+1):
 						try:
 								url = urls.format(page=str(i))
 						except Exception,e:
