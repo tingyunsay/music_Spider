@@ -13,6 +13,8 @@ def Total_page_circulate(site_name,max_pages):
 			return (max_pages/30)+1
 	if site_name == "tudou":
 			return (max_pages/40)+1
+	if site_name == "qq_music":
+			return (max_pages/100)+1
 	else:
 			return max_pages
 
@@ -23,7 +25,11 @@ def Total_page_circulate2(site_name,max_pages):
 	else:
 			return max_pages
 
-
+def Turn_True_Page(i,site_name):
+	if site_name == "douban_movie":
+			return (i - 1)*20
+	else:
+			return i
 
 
 

@@ -6,8 +6,6 @@ import re
 #将穿进来的url统一转换成list返回
 def Relative_to_Absolute(index_url,url_tail):
 	#把http://..../匹配出来
-	#print "the url_tail 2222 is %s \n"%url_tail
-	#print "the index_url is 222222 %s \n"%index_url
 	head_url = re.search(r'(.+//).+?/',index_url).group()
 	if type(url_tail) is list and len(url_tail) > 0:
 		res_urls = []
@@ -36,6 +34,17 @@ def Relative_to_Absolute(index_url,url_tail):
 				return [head_url + ''.join(url_tail)]
 		else:
 			return [''.join(url_tail)]
+#json2这个函数使用
+def Relative_to_Absolute2(index_url,url_tail,site_name):
+	if site_name == "qq_music":
+		res_urls = []
+		target_url = "https://y.qq.com/portal/singer/{aid}.html"
+		for i in url_tail:
+				res_urls.append(target_url.format(aid=i))
+		return res_urls
+	else:
+		return url_tail
+
 
 def Get_Valid_Url(urls):
 	if type(urls) is list and len(urls) > 1:
