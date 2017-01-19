@@ -12,8 +12,8 @@ elif sys.argv[1].startswith('--'):
 				print "\t\t--del_pyc\t删除所有后缀是.pyc的文件"
 				print "\t\t--del_log\t删除所有后缀是.log的文件"
 		elif option == "all":
-				os.system("find ../music_Spider/ -name *.pyc | xargs rm -f")
-				os.system("find ../music_Spider/ -name \*.log | xargs rm -f")
+				os.system("find ../ -name *.pyc | xargs rm -f")
+				os.system("find ../ -name \*.log | xargs rm -f")
 				print "删除所有无关文件成功"
 		elif option == "del_pyc":
 				os.system("find ../music_Spider/ -name *.pyc | xargs rm -f")
