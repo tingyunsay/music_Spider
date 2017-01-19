@@ -33,16 +33,15 @@
 			}
 		}],
 	"qq_music":[{
-			"Is_Json":0,
-			"Index_Url":["https://y.qq.com/portal/singerlist.html#t4=1"],
+			"Is_Json":1,
+			"Index_Url":["https://c.y.qq.com/v8/fcg-bin/v8.fcg?channel=singer&page=list&key=all_all_all&pagesize=100&hostUin=0&format=jsonp&pagenum=1"],
 			"Max_Page":{
-				"xpath":"//div[@class=\"mod_page_nav js_pager\"]/a[last()-1]/text()",
-				"re":".+"
+				"index":["data","total"]
 			}
 		},
 		{
 			"All_Detail_Page":{
-				"xpath":["//ul[@class=\"singer_list__list\"]/li/div/a/@href","//ul[@class=\"singer_list_txt\"]/li/a/@href"]
+				"index":["data","list","Fsinger_mid"]
 			}
 		},
 		{
