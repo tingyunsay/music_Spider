@@ -46,7 +46,15 @@ elif sys.argv[1].startswith('--'):
 								os.system(command)
 								print "spider %s is runing ...."%spider if is_runing(spider) else "spider %s start fail ...."%spider
 		elif option == "show":
-				print "你可以抓取的spider有 ，共%s个:\n %s\t\t\t\n"%(len(spider_name),(' , '.join(spider_name)))	
+				print "config文件中所有的spider有 ，共%s个:\n %s\t\t\t\n"%(len(spider_name),(' , '.join(spider_name)))
+				running = []
+				for spider in spider_name:
+						exists = commands.getoutput("ps -ef|grep %s|grep -v grep"%spider)
+						running.append(spider) if exists else ""
+				print "其中处于running状态的有 ，共%s个:\n %s \t\t\t\n"%(len(running),(' , '.join(running)))
+				stop = list(set(spider_name)^set(running))
+				print "其中处于stop状态的有 ，共%s个:\n %s \t\t\t\n"%(len(stop),(' , '.join(stop)))
+				
 		elif option == "spider":
 				try:
 						spider = sys.argv[2]
