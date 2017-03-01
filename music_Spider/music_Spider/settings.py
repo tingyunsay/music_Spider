@@ -28,6 +28,7 @@ COMMANDS_MODULE = 'music_Spider.commands'
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
+
 DOWNLOAD_DELAY = 0.5
 LOG_LEVEL = 'INFO'
 # The download delay setting will honor only one of:
@@ -41,7 +42,7 @@ LOG_LEVEL = 'INFO'
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
+#DEFAULT_REQUEST_HEA`DERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 #   'Accept-Language': 'en',
 #}
@@ -56,7 +57,10 @@ LOG_LEVEL = 'INFO'
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     #'music_Spider.middlewares.MyCustomDownloaderMiddleware': 543,
-     'music_Spider.UserAgent_Middlewares.RandomUserAgent' : 400,
+     'music_Spider.middlewares.RandomUserAgent' : 5,
+	 #要启用代理ip的时候将下面选项取消注释
+     #'music_Spider.middlewares.ProxyMiddleware' : 100,
+	 #'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 200,
 	 'scrapyjs.SplashMiddleware' : 725,
 }
 

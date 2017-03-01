@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+import base64
 import random
 from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
 
+#合并到一个文件
 
+#添加headers
 class RandomUserAgent(UserAgentMiddleware):
 	def __init__(self,user_agent=''):
 		self.user_agent = user_agent
@@ -29,3 +33,18 @@ class RandomUserAgent(UserAgentMiddleware):
   		"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML, like Gecko) Chrome/19.0.1036.7 Safari/535.20",\
   		"Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
 		]
+
+#添加代理ip
+class ProxyMiddleware(object):
+		def __init__(self):
+				#self.proxy_list = settings.get('PROXY_LIST')
+				with open('ip_proxy.txt') as f:
+						self.proxies = [ip.strip() for ip in f]
+		def process_request(self,request,spider):
+				request.meta['proxy'] = 'http://{}'.format(random.choice(self.proxies))
+				print "now the ip is ",request.meta['proxy'],"#############"
+				
+				
+
+
+

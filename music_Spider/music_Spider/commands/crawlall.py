@@ -21,7 +21,7 @@ class Command(ScrapyCommand):
 		ScrapyCommand.process_options(self,args,opts)
 		try:
 			opts.spargs = arglist_to_dict(opts.spargs)
-		except:
+		except ValueError:
 			raise UsageError("Invalid -a value,use -a NAME=VALUE",print_help=False)
 		
 	def run(self,args,opts):
